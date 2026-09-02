@@ -80,9 +80,9 @@ def chooseSystem {N J : Nat} (p : BlockGeometry.Partition N J)
   · intro j q v hv
     exact (Classical.choose_spec (hex j q)).1 v hv
   · intro j q u hlow hupp
-    simpa only [dist_eq_norm] using (Classical.choose_spec (hex j q)).2.1 u hlow hupp
+    simpa only [dist_eq_norm, F] using (Classical.choose_spec (hex j q)).2.1 u hlow hupp
   · intro j q
-    simpa only [weight, Fintype.card_coe] using (Classical.choose_spec (hex j q)).2.2
+    simpa only [weight, Fintype.card_coe, F] using (Classical.choose_spec (hex j q)).2.2
 
 namespace System
 
