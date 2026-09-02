@@ -83,7 +83,7 @@ lake exe cache get
 lake build
 ```
 
-Both libraries are default build targets. The final source includes `#print axioms` commands for key declarations, so the build log also reports their foundational dependencies. Those commands inspect dependencies; they do not introduce axioms.
+All three libraries, including `PlanarSmallBall`, are default build targets. GitHub Actions also compiles `AxiomAudit.lean` and checks six public declarations against the foundational-axiom whitelist. The source includes `#print axioms` commands: these inspect dependencies and do not introduce axioms. See the repository's Actions tab for the actual run status; adding the workflow alone does not mean verification passed.
 
 The upstream projection-density project is pinned as a reference dependency. Its presence does not automatically discharge any field of `AppendixBInputs`, nor remove its own geometric Brascamp-Lieb hypothesis.
 

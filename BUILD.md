@@ -40,3 +40,20 @@ This audit does not eliminate theorem hypotheses. In particular, `AppendixBInput
 ## Verification location
 
 This verification ran locally, not in GitHub Actions. This initial publication does not configure an Actions workflow. The local build log is ignored rather than committed; the relevant result and audit are recorded above.
+
+## Remote verification for the planar extension
+
+The original local build record above concerns the baseline. The later
+`PlanarSmallBall.lean` extension and `AxiomAudit.lean` are checked by the
+`Lean proof check` GitHub Actions workflow. This supersedes the earlier
+statement that no Actions workflow is configured. The extension has three
+library targets plus the separate audit file.
+
+The last local planar build was stopped at the user's request to switch to
+remote compilation. Uploading the source, creating a workflow, or obtaining
+GitHub authorization is not a successful Lean check. The run associated with
+a given commit records the actual result. The workflow builds the project
+libraries from source, then checks six axiom lists. It accepts only `propext`,
+`Classical.choice`, and `Quot.sound`; ordinary theorem hypotheses remain
+explicit hypotheses. See `PLANAR.md` and `STATUS.md` for the remaining
+model-to-certificate work.

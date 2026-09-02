@@ -20,7 +20,10 @@ The target is Theorem 3.1 and Appendix B of arXiv:2609.01295v1. This repository 
 | Passing from the HS cutoff to the shifted operator cap | `shifted_apply`, `shifted_opNorm_le`, `hs_truncation_implies_cap` | Proved. |
 | Measurable choice/exposure, conditional laws, block nets, and the cyclic-path probability certificate for this version | `AppendixBInputs.normal_cover`, `AppendixBInputs.fixed_small_ball` | Interface. The full random certificate has not been constructed in this repository. Retained deterministic ingredients do not discharge these fields by themselves. |
 | Real projection-density small ball | Used only through the certificate fields | Analytic/model interface. The separate real projection project is conditional on finite geometric Brascamp-Lieb. |
-| General complex planar-density small ball | Used only through the certificate fields | Analytic/model interface. The Bobkov-Chistyakov maximum-density input is not proved or connected here. |
+| General complex planar-density small ball | `Planar.sum_has_bounded_density`, `Planar.sum_small_ball` | Elementary dimension-loss alternative implemented in `PlanarSmallBall.lean`; no independence of real and imaginary parts and no additional analytic theorem. Model-to-certificate connection is still pending. |
+| Planar density scaling and independent shifts | `Planar.map_volume_mul`, `Planar.map_mul_le_volume`, `Planar.independent_add_le_volume` | Real Jacobian, measure domination, product-law integration, and an actual Radon-Nikodym density. |
+| Dimension-loss normal-event entropy | `dimension_loss_log_envelope`, `dimension_loss_normal_union` | Extra cost at most N log N; numerical coefficient 27 is replaced by 28. |
+| Dimension-loss column prefactor | `dimension_loss_final_gap` | Scalar absorption of an extra sqrt(N); not a construction of a matrix-model certificate. |
 | Converting quadratic small-ball control to linear control | `min_one_square_le`, `planar_to_linear` | Proved scalar implication; not a proof of the planar density theorem. |
 | Fixed-direction conditional scalar-density case | Used only through the certificate fields | Analytic/model interface; conditioning and independence must be supplied. |
 | Literal fixed-index probability envelope | `rawFixedBound` | Exact expression defined. The probability upper bound by this expression is a certificate field. |
@@ -39,7 +42,7 @@ All declarations without a file qualifier in this table are in the `HighBandLSV`
 ## Exactly what remains
 
 1. Construct `AppendixBInputs` from the paper's independent atom laws, density assumptions, and band variance profile. This includes the new good-normal event, measurable exposure/conditioning, complex block-net estimates, the cyclic-path probabilistic argument, the fixed-index envelope estimate, and the good-normal column bound. The fields have not simply been renamed as proved theorems.
-2. Supply and connect the needed density inequalities for each distributional case. The real projection result is conditional on geometric Brascamp-Lieb. The arbitrary complex planar case additionally needs the appropriate maximum-density result. The directional conditional-density case needs its stated conditioning and independence justified from the model.
+2. Connect the density estimates to the concrete row, net, and column events for each distributional case. The real projection result is conditional on geometric Brascamp-Lieb. The new arbitrary-complex planar route has an elementary dimension-loss estimate and does not require the Bobkov-Chistyakov maximum-density theorem. The directional conditional-density case still needs its stated conditioning and independence justified from the model.
 
 The arithmetic, actual-parameter numerical closure, HS-to-operator-cap reduction, distance-to-span estimate, and final event/union-bound assembly are not on this remaining-work list.
 
