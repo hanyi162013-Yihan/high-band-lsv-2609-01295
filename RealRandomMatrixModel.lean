@@ -12,6 +12,9 @@ open scoped ENNReal BigOperators
 namespace HighBandLSV
 open LivshytsProjectionFormalization
 
+local instance (n : Nat) : MeasurableSpace (Matrix (Fin n) (Fin n) Complex) :=
+  inferInstanceAs (MeasurableSpace (Fin n → Fin n → Complex))
+
 structure RealBandModel (N W : Nat) (c C rho : Real) where
   sigma : Matrix (Fin N) (Fin N) Real
   sigma_nonneg : ∀ i j, 0 ≤ sigma i j
@@ -62,7 +65,7 @@ theorem measurable_coordinateRV : Measurable (coordinateRV (N := N)) := by
 
 theorem independent_coordinates (j : Fin N) :
     iIndepFun (fun i (x : AtomColumn N) => coordinateRV x i) (m.columnLaw j) := by
-  simpa only [coordinateRV, WithLp.ofLp_toLp, columnLaw] using
+  simpa only [coordinateRV, WithLp.ofLp_toLp, columnLaw, id] using
     (iIndepFun_pi (μ := m.atomLaw j) (X := fun _ => id)
       (fun _ => measurable_id.aemeasurable))
 
@@ -82,6 +85,13 @@ def projectedBoundedDensity
   real_independent_randomProjection_hasBoundedDensity_provedCoarea hGBL hrho
     coordinateRV (m.columnLaw j) measurable_coordinateRV (m.independent_coordinates j)
     E hE (m.density j) (m.marginal_law j)
+
+def projectionInterface
+    (hGBL : RealFiniteGeometricBrascampLieb) (hrho : 0 < rho) (j : Fin N) :
+    HighBandLSV.Real.OneTwoProjectionDensityInterface (AtomColumn N) N
+      (m.columnLaw j) coordinateRV rho (Real.exp 1) :=
+  HighBandLSV.Real.realOneTwoProjectionDensityInterfaceFromGBL hGBL hrho
+    measurable_coordinateRV (m.independent_coordinates j) (m.density j) (m.marginal_law j)
 
 end RealBandModel
 end HighBandLSV

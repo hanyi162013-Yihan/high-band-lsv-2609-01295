@@ -59,7 +59,10 @@ theorem probability_of_small_weight {N W : Nat} {c C L A delta weight : Real}
     unfold bound
     exact (le_div_iff₀ hw).2 (by simpa using hnum)
   calc
-    m.columnLaw j {x | ‖m.linearForm j u x - w‖ ≤ delta} ≤ 1 := measure_le_one
+    m.columnLaw j {x | ‖m.linearForm j u x - w‖ ≤ delta} ≤ 1 := by
+      calc
+        _ ≤ m.columnLaw j Set.univ := measure_mono (Set.subset_univ _)
+        _ = 1 := measure_univ
     _ = ENNReal.ofReal (1 : Real) := by simp
     _ ≤ ENNReal.ofReal (bound A N W delta weight) := ENNReal.ofReal_le_ofReal hbound
 

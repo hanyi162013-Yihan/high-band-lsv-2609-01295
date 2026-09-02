@@ -1,6 +1,6 @@
 name = "high-band-lsv-2609-01295"
 version = "0.1.0"
-defaultTargets = ["HighBandLSV", "Section5Formalization", "PlanarSmallBall", "RandomMatrixModel", "NormalEvents", "MatrixColumnBound", "PlanarNets", "BlockGeometry", "NeighborPath", "RadialLedger", "PathApi", "RadialNetAssembly", "PathGeometry", "NormalNetEvents", "MatrixGeometry", "IntegrationApi", "FiniteProbability", "QuadraticLinearization", "PlanarRowBounds", "PlanarTensorization", "RadialRawBound", "MeshParameters", "FixedNormalProbability", "ClosingApi", "RealProjectionInterface", "RealProjectionSmallBall", "RealProjectionAdapter", "InternalNet", "ModelNumerics", "ModelAssemblyApi", "RealModelApi", "RealRandomMatrixModel", "LSVAssembly", "RealAnisotropicGeometry"]
+defaultTargets = ["HighBandLSV", "Section5Formalization", "PlanarSmallBall", "RandomMatrixModel", "NormalEvents", "MatrixColumnBound", "PlanarNets", "BlockGeometry", "NeighborPath", "RadialLedger", "PathApi", "RadialNetAssembly", "PathGeometry", "NormalNetEvents", "MatrixGeometry", "IntegrationApi", "FiniteProbability", "QuadraticLinearization", "PlanarRowBounds", "PlanarTensorization", "RadialRawBound", "MeshParameters", "FixedNormalProbability", "ClosingApi", "RealProjectionInterface", "RealProjectionSmallBall", "RealProjectionAdapter", "InternalNet", "ModelNumerics", "ModelAssemblyApi", "RealModelApi", "RealRandomMatrixModel", "LSVAssembly", "RealAnisotropicGeometry", "RealWeightedGeometry", "AnisotropicLabels", "AnisotropicNetGeometry", "ModelPartition"]
 
 [[lean_lib]]
 name = "HighBandLSV"
@@ -113,3 +113,15 @@ name = "LSVAssembly"
 
 [[lean_lib]]
 name = "RealAnisotropicGeometry"
+
+[[lean_lib]]
+name = "RealWeightedGeometry"
+
+[[lean_lib]]
+name = "AnisotropicLabels"
+
+[[lean_lib]]
+name = "AnisotropicNetGeometry"
+
+[[lean_lib]]
+name = "ModelPartition"

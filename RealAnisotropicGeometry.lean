@@ -29,7 +29,7 @@ def join (a b : RV I) : CV I := WithLp.toLp 2 (fun i => (a i : Complex) + (b i :
 
 theorem norm_join_sq (a b : RV I) : ‖join a b‖ ^ 2 = ‖a‖ ^ 2 + ‖b‖ ^ 2 := by
   simp [PiLp.norm_sq_eq_of_L2, join, Complex.sq_norm, Complex.normSq_apply,
-    Finset.sum_add_distrib, Real.norm_eq_abs, sq_abs]
+    Finset.sum_add_distrib, Real.norm_eq_abs, sq_abs, pow_two]
 
 theorem parts_norm_sq (u : CV I) : ‖u‖ ^ 2 = ‖realPart u‖ ^ 2 + ‖imagPart u‖ ^ 2 := by
   rw [← norm_join_sq, join_parts]
@@ -104,9 +104,9 @@ theorem shear_abs_le_one {a b : E} (h : ‖b‖ ≤ ‖a‖) : |shear a b| ≤ 1
   · simp [shear, ha]
   have han : 0 < ‖a‖ := norm_pos_iff.mpr ha
   have hc : |⟪a, b⟫_ℝ| ≤ ‖a‖ * ‖b‖ := by
-    simpa only [Real.norm_eq_abs] using norm_inner_le_norm a b
+    simpa only [Real.norm_eq_abs] using norm_inner_le_norm (𝕜 := Real) a b
   unfold shear
-  rw [abs_div, abs_of_nonneg (sq_nonneg _)]
+  rw [abs_div, abs_of_nonneg (sq_nonneg ‖a‖)]
   apply (div_le_one (sq_pos_of_pos han)).2
   nlinarith [mul_le_mul_of_nonneg_left h han.le]
 
@@ -145,7 +145,7 @@ theorem gram_product_symm (a b : E) :
     ‖a‖ * ‖residual a b‖ = ‖b‖ * ‖residual b a‖ := by
   have h1 := gram_product_sq a b
   have h2 := gram_product_sq b a
-  rw [real_inner_comm b a] at h2
+  rw [real_inner_comm a b] at h2
   nlinarith [mul_nonneg (norm_nonneg a) (norm_nonneg (residual a b)),
     mul_nonneg (norm_nonneg b) (norm_nonneg (residual b a))]
 

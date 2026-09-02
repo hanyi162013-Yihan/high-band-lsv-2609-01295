@@ -21,7 +21,10 @@ def normalSpread {N J : Nat} (p : BlockGeometry.Partition N J) (delta : Real) :
 theorem measurableSet_normalSpread {N J : Nat}
     (p : BlockGeometry.Partition N J) (delta : Real) :
     MeasurableSet (normalSpread p delta) := by
-  change MeasurableSet (⋂ i, ⋂ j, NormalEvents.good i (p.blocks j) delta)
+  have heq : normalSpread p delta = ⋂ i, ⋂ j, NormalEvents.good i (p.blocks j) delta := by
+    ext A
+    simp [normalSpread]
+  rw [heq]
   exact MeasurableSet.iInter fun i => MeasurableSet.iInter fun j =>
     NormalEvents.measurableSet_good i (p.blocks j) delta
 

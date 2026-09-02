@@ -19,7 +19,7 @@ theorem certificate_raw_log_bound {N J r : Nat} {W kappa R Kz A C1 c Cw : Real}
   have hrJN : (r : Real) * J ≤ N := by exact_mod_cast h.rows_le
   have hrN : r ≤ N := calc
     r = r * 1 := by omega
-    _ ≤ r * J := Nat.mul_le_mul_left r (by omega)
+    _ ≤ r * J := Nat.mul_le_mul_left r (Nat.succ_le_of_lt h.J_pos)
     _ ≤ N := h.rows_le
   obtain ⟨ha, hb, hc, hd⟩ := hs_cap_log_bounds hN hJ hJN h.entropy.W_pos
     h.C_pos h.C1_pos hK0 (by linarith [h.Cw_ge_one]) h.bandwidth_upper
@@ -44,7 +44,7 @@ theorem certificate_dimension_loss_union {N J r : Nat} {W kappa R Kz A C1 c Cw :
     rw [rawFixedBound_eq_exp h.J_pos h.entropy.W_pos h.C_pos h.C1_pos hK]
     exact Real.exp_pos _
   simpa only [Nat.cast_mul] using dimension_loss_normal_union
-    (by omega : 1 ≤ N) h.J_pos h.J_le_N h.rows_le hp he h.normal_growth
+    (Nat.succ_le_of_lt h.N_pos) h.J_pos h.J_le_N h.rows_le hp he h.normal_growth
     (certificate_raw_log_bound h)
 
 theorem eventually_seed_size {chi : Real} (hchi : 0 < chi) (W : Nat → Nat)
