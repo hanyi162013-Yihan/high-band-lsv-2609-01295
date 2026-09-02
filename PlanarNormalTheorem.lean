@@ -26,7 +26,7 @@ theorem planar_bad_normals_from_numerics
   have hJ : (1 : Real) ≤ J := by exact_mod_cast num.J_pos
   have hK0 : 0 ≤ R + Kz + 1 := by linarith [num.R_nonneg, num.Kz_nonneg]
   have hK : 0 ≤ hsCap N R Kz := by unfold hsCap; positivity
-  have hmesh := MeshParameters.actual_mesh_bounds (Nat.cast_nonneg N)
+  have hmesh := MeshParameters.actual_mesh_bounds (kappa := kappa) (Nat.cast_nonneg N)
     num.entropy.W_pos hJ hC1 hK
   have hA1 : 1 ≤ A := by linarith
   have hb := FixedNormalProbability.bad_normal_probability m p hband z

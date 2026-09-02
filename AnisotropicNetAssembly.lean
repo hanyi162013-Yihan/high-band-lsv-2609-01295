@@ -17,7 +17,9 @@ theorem blockLabel_card {h : Real} (hh : 0 < h) (hh1 : h ≤ 1) :
     (Fintype.card (BlockLabel h) : Real) ≤ (5 / h) ^ 3 := by
   have hc : Fintype.card (BlockLabel h) ≤ Fintype.card (Label h) :=
     Fintype.card_le_of_injective Subtype.val Subtype.val_injective
-  exact (by exact_mod_cast hc).trans (label_card_bound hh hh1)
+  have hcast : (Fintype.card (BlockLabel h) : Real) ≤ Fintype.card (Label h) := by
+    exact_mod_cast hc
+  exact hcast.trans (label_card_bound hh hh1)
 
 theorem labels_card (J : Nat) {h : Real} (hh : 0 < h) (hh1 : h ≤ 1) :
     (Fintype.card (Labels J h) : Real) ≤ (5 / h) ^ (3 * J) := by

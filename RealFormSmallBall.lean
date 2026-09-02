@@ -106,6 +106,7 @@ theorem form_two_small_ball (a b : RV (Fin N))
     have hevent : {omega | ‖form b a (xi omega) - swapComplex w‖ ≤ s} =
         {omega | ‖form a b (xi omega) - w‖ ≤ s} := by
       ext omega
+      change ‖form b a (xi omega) - swapComplex w‖ ≤ s ↔ ‖form a b (xi omega) - w‖ ≤ s
       rw [form_swap, swapComplex_distance]
     rw [hevent, ← gram_product_symm a b] at h
     exact h

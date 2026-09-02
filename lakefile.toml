@@ -1,6 +1,6 @@
 name = "high-band-lsv-2609-01295"
 version = "0.1.0"
-defaultTargets = ["HighBandLSV", "Section5Formalization", "PlanarSmallBall", "RandomMatrixModel", "NormalEvents", "MatrixColumnBound", "PlanarNets", "BlockGeometry", "NeighborPath", "RadialLedger", "PathApi", "RadialNetAssembly", "PathGeometry", "NormalNetEvents", "MatrixGeometry", "IntegrationApi", "FiniteProbability", "QuadraticLinearization", "PlanarRowBounds", "PlanarTensorization", "RadialRawBound", "MeshParameters", "FixedNormalProbability", "ClosingApi", "RealProjectionInterface", "RealProjectionSmallBall", "RealProjectionAdapter", "InternalNet", "ModelNumerics", "ModelAssemblyApi", "RealModelApi", "RealRandomMatrixModel", "LSVAssembly", "RealAnisotropicGeometry", "RealWeightedGeometry", "AnisotropicLabels", "AnisotropicNetGeometry", "ModelPartition", "AnisotropicNets", "RealFormSmallBall", "RealMatrixForms", "RealSmallBallNumerics", "AnisotropicNetAssembly", "PlanarNormalTheorem", "AnisotropicMesh", "PlanarModelTheorem"]
+defaultTargets = ["HighBandLSV", "Section5Formalization", "PlanarSmallBall", "RandomMatrixModel", "NormalEvents", "MatrixColumnBound", "PlanarNets", "BlockGeometry", "NeighborPath", "RadialLedger", "PathApi", "RadialNetAssembly", "PathGeometry", "NormalNetEvents", "MatrixGeometry", "IntegrationApi", "FiniteProbability", "QuadraticLinearization", "PlanarRowBounds", "PlanarTensorization", "RadialRawBound", "MeshParameters", "FixedNormalProbability", "ClosingApi", "RealProjectionInterface", "RealProjectionSmallBall", "RealProjectionAdapter", "InternalNet", "ModelNumerics", "ModelAssemblyApi", "RealModelApi", "RealRandomMatrixModel", "LSVAssembly", "RealAnisotropicGeometry", "RealWeightedGeometry", "AnisotropicLabels", "AnisotropicNetGeometry", "ModelPartition", "AnisotropicNets", "RealFormSmallBall", "RealMatrixForms", "RealSmallBallNumerics", "AnisotropicNetAssembly", "PlanarNormalTheorem", "AnisotropicMesh", "PlanarModelTheorem", "RealRowBounds", "RealColumnSmallBall", "RealColumnExposure", "RealExposureApi"]
 
 [[lean_lib]]
 name = "HighBandLSV"
@@ -149,3 +149,15 @@ name = "AnisotropicMesh"
 
 [[lean_lib]]
 name = "PlanarModelTheorem"
+
+[[lean_lib]]
+name = "RealRowBounds"
+
+[[lean_lib]]
+name = "RealColumnSmallBall"
+
+[[lean_lib]]
+name = "RealColumnExposure"
+
+[[lean_lib]]
+name = "RealExposureApi"
