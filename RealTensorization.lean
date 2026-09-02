@@ -42,7 +42,8 @@ theorem constraint_probability (u : CV (Fin N)) (S : Finset (Fin N)) (z : Comple
     ext omega
     simp only [Set.mem_preimage, NormalNetEvents.constraint, Set.mem_setOf_eq, m.inner_shifted_column]
   rw [he]
-  exact ProductEvents.finite_constraints m.columnLaw S _
+  simpa only [law] using ProductEvents.finite_constraints m.columnLaw S
+    (fun j => {x | ‖m.linearForm j u x - star (u j) * z‖ ≤ d})
 
 end HighBandLSV.RealBandModel
 namespace HighBandLSV.RealTensorization

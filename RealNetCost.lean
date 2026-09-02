@@ -65,7 +65,7 @@ theorem center_cost_bound
   have hw : ∀ j, 0 < Anisotropic.labelWeight (q j).val :=
     fun j => Anisotropic.labelWeight_pos hh (q j).val
   have hw1 : ∀ j, Anisotropic.labelWeight (q j).val ≤ 1 :=
-    fun j => Anisotropic.labelWeight_le_one hh.le hh1 (q j).property
+    fun j => Anisotropic.labelWeight_le_one hh hh1 (q j).val (q j).property
   have hrow : 0 ≤ RealTensorization.rowProduct r (A * N) W d h path q := by
     unfold RealTensorization.rowProduct
     exact Finset.prod_nonneg fun j _ => pow_nonneg

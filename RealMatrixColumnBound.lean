@@ -12,9 +12,6 @@ open HighBandLSV.RealColumnExposure HighBandLSV.Anisotropic
 
 variable {n W : Nat} {c C rho : Real} (m : RealBandModel (n + 1) W c C rho)
 
-local instance : MeasurableSpace (NormalEvents.Mat (n + 1)) :=
-  inferInstanceAs (MeasurableSpace (Fin (n + 1) → Fin (n + 1) → Complex))
-
 def reconstructedMatrix (j : Fin (n + 1)) (p : AtomColumn (n + 1) × Rest n) : NormalEvents.Mat (n + 1) :=
   m.matrix (reconstruct j p.1 p.2)
 
@@ -57,8 +54,11 @@ theorem good_reconstruct_iff (j : Fin (n + 1)) (x : AtomColumn (n + 1)) (rest : 
   · intro h u hu
     exact h u ((m.normal_reconstruct_iff j x rest z u).mp hu)
 
-theorem measurable_reconstructedMatrix (j : Fin (n + 1)) : Measurable (m.reconstructedMatrix j) :=
-  m.measurable_matrix.comp (measurable_reconstruct j)
+theorem measurable_reconstructedMatrix (j : Fin (n + 1)) : Measurable (m.reconstructedMatrix j) := by
+  have hm : Measurable m.matrix := by
+    have hc : Continuous m.matrix := by unfold matrix; fun_prop
+    exact hc.measurable
+  exact hm.comp (measurable_reconstruct j)
 
 theorem measurable_reconstructedShift (j : Fin (n + 1)) (z : Complex) :
     Measurable (fun p => shifted (m.reconstructedMatrix j p) z) := by
@@ -67,7 +67,8 @@ theorem measurable_reconstructedShift (j : Fin (n + 1)) (z : Complex) :
 
 theorem measurable_frozenShift (j : Fin (n + 1)) (z : Complex) :
     Measurable (fun rest => shifted (m.frozenMatrix j rest) z) :=
-  (m.measurable_reconstructedShift j z).comp (measurable_const.prod_mk measurable_id)
+  (m.measurable_reconstructedShift j z).comp
+    (show Measurable (fun rest : Rest n => ((0 : AtomColumn (n + 1)), rest)) by fun_prop)
 
 def goodRest (j : Fin (n + 1)) (z : Complex) (B : Finset (Fin (n + 1))) (d : Real) : Set (Rest n) :=
   {rest | shifted (m.frozenMatrix j rest) z ∈ NormalEvents.good j B d}
@@ -105,7 +106,7 @@ theorem exposed_distance_small_ball
   · obtain ⟨u, hu⟩ := NormalEvents.exists_unit_normal (shifted (m.frozenMatrix j rest) z) j
     have hmass : d ^ 2 ≤ NormalEvents.blockMass B u := hrest u hu
     have hcover : (fun x => (x, rest)) ⁻¹' m.exposedDistanceEvent j z B d s ⊆
-        {x | ‖m.linearForm j u x - star (u j) * z‖ ≤ s} := by
+        {x | ‖m.linearForm j u x - star ((u : NormalEvents.Vec (n + 1)) j) * z‖ ≤ s} := by
       intro x hx
       have hun := (m.normal_reconstruct_iff j x rest z u).mpr hu
       have hinner := (NormalEvents.norm_inner_le_distance
@@ -113,7 +114,8 @@ theorem exposed_distance_small_ball
       rw [m.reconstructed_inner] at hinner
       exact hinner
     exact (measure_mono hcover).trans
-      (m.linearForm_block_mass_small_ball hGBL hrho hc hW j u B hB hd hs hmass (star (u j) * z))
+      (m.linearForm_block_mass_small_ball hGBL hrho hc hW j u B hB hd hs hmass
+        (star ((u : NormalEvents.Vec (n + 1)) j) * z))
   · have hcover : (fun x => (x, rest)) ⁻¹' m.exposedDistanceEvent j z B d s ⊆
         (∅ : Set (AtomColumn (n + 1))) := by
       intro x hx
