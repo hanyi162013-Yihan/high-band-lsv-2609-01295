@@ -45,3 +45,13 @@ The source is arXiv:2609.01295v1, where the high-band input is **Theorem 3.1**
 assuming it separately. See [SOURCE_COMPARISON.md](SOURCE_COMPARISON.md) for the
 statement-by-statement comparison, including the optional directional extension
 and stronger intermediate lemmas that are not claimed as formalized.
+
+## Complete model-level check
+
+Revision `50b3d2f9150f58bdb506bb528660bf3651ef81af` passed
+[run 33627100982](https://github.com/hanyi162013-Yihan/high-band-lsv-2609-01295/actions/runs/33627100982).
+This includes both paper-facing main statements and the profile-derived
+bandwidth bound: 70 Lean files, 68 production modules, 1,388 audited declarations,
+and all 25 selected dependency reports. The explicit norm audit confirms the
+Frobenius norm and the actual matrix singular-value definition. See
+[VERIFICATION.md](VERIFICATION.md) for the precise record and assumptions.

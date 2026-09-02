@@ -95,3 +95,10 @@ bandwidth-upper-bound premise: it is proved from a normalized row and the
 variance upper bound. They also derive eventual positive bandwidth from the
 high-band lower bound. See [SOURCE_COMPARISON.md](SOURCE_COMPARISON.md) for the
 precise correspondence and intentional differences from Appendix B.
+
+## Verification record
+
+The complete mathematical revision passed the all-source build and exhaustive
+audit: 70 Lean files, 68 production modules, and 1,388 declarations. The exact
+revision, successful run, expanded norm definitions, and proof boundary are
+recorded in [VERIFICATION.md](VERIFICATION.md).
