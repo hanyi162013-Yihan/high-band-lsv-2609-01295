@@ -1,0 +1,18 @@
+import RandomMatrixModel
+import PlanarNets
+
+#check HighBandLSV.PlanarBandModel.energy_ge_block
+#check HighBandLSV.PlanarBandModel.linearForm_small_ball_of_energy_lower
+#check HighBandLSV.PlanarBandModel.selected_rows_probability
+#check HighBandLSV.PlanarBandModel.finite_net_small_ball
+#check HighBandLSV.PlanarNets.exists_annular_net
+#check HighBandLSV.PlanarNets.levelCount_bound
+#print HighBandLSV.hilbertSchmidt
+#print HighBandLSV.rawFixedBound
+#print HighBandLSV.hsCap
+#check HighBandLSV.actual_partition_geometry
+#check HighBandLSV.high_band_lsv_from_inputs
+#check HighBandLSV.dimension_loss_normal_union
+#check HighBandLSV.dimension_loss_final_gap
+#check HighBandLSV.eventually_final_log_dominance
+#check HighBandLSV.eventually_actual_numerics

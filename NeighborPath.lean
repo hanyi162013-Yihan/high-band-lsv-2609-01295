@@ -58,7 +58,9 @@ def between {J : Nat} (k l : Fin J) : Path k l := by
       dsimp [m]
       omega
     · intro q
-      exact Or.inl (by simp [Step, increasing, Fin.val_succ, Fin.val_castSucc])
+      apply Or.inl
+      change k.val + q.val + 1 = k.val + (q.val + 1)
+      omega
   · let m := k.val - l.val
     have hm : m ≤ k.val := Nat.sub_le _ _
     refine ⟨m, decreasing k m hm, decreasing_injective k m hm, ?_, ?_, ?_⟩
@@ -88,8 +90,7 @@ theorem next_on {J m : Nat} (path : Fin (m + 1) → Fin J)
   have hex : ∃ a : Fin m, path a.castSucc = path q.castSucc := ⟨q, rfl⟩
   rw [next, dif_pos hex]
   have ha : Classical.choose hex = q := by
-    apply Fin.ext
-    exact congrArg Fin.val (hp (Classical.choose_spec hex))
+    exact Fin.castSucc_injective m (hp (Classical.choose_spec hex))
   rw [ha]
 
 theorem next_off {J m : Nat} (path : Fin (m + 1) → Fin J)

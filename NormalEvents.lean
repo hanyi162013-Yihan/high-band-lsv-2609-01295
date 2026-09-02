@@ -39,10 +39,13 @@ theorem continuous_blockMass {N : Nat} (B : Finset (Fin N)) : Continuous (blockM
 
 abbrev UnitVec (N : Nat) := {u : Vec N // ‖u‖ = 1}
 
-set_option backward.isDefEq.respectTransparency false in
-instance unitVec_compact (N : Nat) : CompactSpace (UnitVec N) := by
+private theorem compactUnitSphere (E : Type*) [NormedAddCommGroup E] [ProperSpace E] :
+    CompactSpace {u : E // ‖u‖ = 1} := by
   apply isCompact_iff_compactSpace.mp
-  simpa only [Metric.sphere, dist_zero_right] using isCompact_sphere (0 : Vec N) (1 : Real)
+  simpa only [Metric.sphere, dist_zero_right] using isCompact_sphere (0 : E) (1 : Real)
+
+instance unitVec_compact (N : Nat) : CompactSpace (UnitVec N) :=
+  compactUnitSphere (Vec N)
 
 def IsNormal {N : Nat} (A : Mat N) (j : Fin N) (u : Vec N) : Prop :=
   ∀ k, k ≠ j → inner Complex (col A k) u = 0
@@ -164,7 +167,9 @@ theorem measurable_columnDistance {N : Nat} (j : Fin N) :
   have hset : MeasurableSet {A : Mat N |
       GinibreLSV.columnDistance (GinibreLSV.matrixOfColumns (fun k => col A k)) j < r} :=
     (GinibreLSV.measurableSet_columnDistance_matrixOfColumns_lt j r).preimage hC
-  simpa only [heq] using hset
+  convert hset using 1
+  ext A
+  simp only [heq, mem_preimage, mem_Iio, mem_setOf_eq]
 
 theorem inner_col_eq {N : Nat} (u : Vec N) (A : Mat N) (j : Fin N) :
     inner Complex u (col A j) = ∑ i, star (u i) * A i j := by
