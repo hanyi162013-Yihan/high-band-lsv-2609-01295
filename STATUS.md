@@ -51,3 +51,13 @@ The arithmetic, actual-parameter numerical closure, HS-to-operator-cap reduction
 There are no intended additional axioms or proof placeholders in this development. The source prints the dependencies of the finite-dimensional main theorem, partition arithmetic, exact logarithmic bound, final exponent domination, actual eventual numerical closure, and the eventual main theorem.
 
 A passing build should list only Lean's usual foundational dependencies (`propext`, `Classical.choice`, and `Quot.sound`, or a subset). In particular, a failed elaboration that prints `sorryAx` is not a successful verification. See `BUILD.md` for the completed build record rather than treating intermediate compiler output as a passed proof.
+
+## Planar extension verification record
+
+The new planar-density and dimension-loss rows above passed the complete
+GitHub Lean build and the six-declaration axiom audit at source commit
+`c13976dc5aace2c8923c22414f573f5026dfa476` on 2026-09-02.
+[Verification run](https://github.com/hanyi162013-Yihan/high-band-lsv-2609-01295/actions/runs/33594512597).
+The only audited foundational dependencies are `propext`, `Classical.choice`,
+and `Quot.sound`. The remaining model-to-`AppendixBInputs` work listed above
+is unchanged by this successful verification.

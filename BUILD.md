@@ -57,3 +57,20 @@ libraries from source, then checks six axiom lists. It accepts only `propext`,
 `Classical.choice`, and `Quot.sound`; ordinary theorem hypotheses remain
 explicit hypotheses. See `PLANAR.md` and `STATUS.md` for the remaining
 model-to-certificate work.
+
+### Successful remote check: 2026-09-02
+
+- Verified source commit: `c13976dc5aace2c8923c22414f573f5026dfa476`.
+- [Successful GitHub Actions run](https://github.com/hanyi162013-Yihan/high-band-lsv-2609-01295/actions/runs/33594512597).
+- `lake build`: `Build completed successfully (8670 jobs).`
+- `PlanarSmallBall`: compiled successfully in 8.7 seconds.
+- Complete hosted job: 8 minutes, including environment setup and caching.
+- The dependency cache was successfully saved.
+- `AxiomAudit.lean`: all six declarations were checked; each reported exactly
+  `[propext, Classical.choice, Quot.sound]`.
+- This verifies the new dimension-loss planar density and scalar absorption
+  proofs, as well as the existing conditional high-band theorem. It does not
+  construct the outstanding `AppendixBInputs` matrix-model certificate.
+
+This record is a documentation-only update after the checked source commit.
+The Lean sources and workflow were not changed when recording the result.
