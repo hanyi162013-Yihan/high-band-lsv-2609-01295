@@ -43,3 +43,11 @@ import PlanarNets
 #print axioms HighBandLSV.ModelStatements.real_main_statement
 #print axioms HighBandLSV.ModelStatements.planar_main_statement
 #print axioms HighBandLSV.NormalKernelIdentity.isNormal_iff_ker
+
+#print HighBandLSV.leastSingularBadEvent
+#print HighBandLSV.hilbertSchmidt
+#print HighBandLSV.hsEvent
+#print HighBandLSV.RealBandModel
+#print HighBandLSV.PlanarBandModel
+#print LivshytsProjectionFormalization.CoordinateDensityData
+#print LivshytsProjectionFormalization.RealFiniteGeometricBrascampLieb

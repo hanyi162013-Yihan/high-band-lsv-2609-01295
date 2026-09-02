@@ -114,8 +114,14 @@ jobs:
         run: |
           set -euo pipefail
           mapfile -t sources < <(git ls-files '*.lean')
-          if rg -n '\b(sorry|admit|unsafe)\b|^\s*(private\s+|protected\s+)?axiom\b' -- "${sources[@]}"; then
-            printf 'A forbidden proof placeholder or declaration was found.\n' >&2
+          scan_status=0
+          if command -v rg >/dev/null 2>&1; then
+            rg -n '\b(sorry|admit|unsafe)\b|^\s*(private\s+|protected\s+)?axiom\b' -- "${sources[@]}" || scan_status=$?
+          else
+            git grep -n -E '(^|[^[:alnum:]_])(sorry|admit|unsafe)([^[:alnum:]_]|$)|^[[:space:]]*(private[[:space:]]+|protected[[:space:]]+)?axiom([^[:alnum:]_]|$)' -- '*.lean' || scan_status=$?
+          fi
+          if [[ "$scan_status" -ne 1 ]]; then
+            printf 'Source policy scan did not complete cleanly (status %s).\n' "$scan_status" >&2
             exit 1
           fi
           for source in "${sources[@]}"; do

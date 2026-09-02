@@ -142,7 +142,7 @@ run_cmd do
     "Section5Formalization.VolumetricNet",
     "UniformModelExample"]
   let allowed : Array Name := #[``propext, ``Classical.choice, ``Quot.sound]
-  let mut count := 0
+  let mut count : Nat := 0
   for (name, _) in env.checked.get.constants.toList do
     if let some idx := env.getModuleIdxFor? name then
       let owner := (env.header.modules[idx.toNat]!).module
