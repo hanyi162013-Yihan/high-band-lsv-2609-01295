@@ -1,0 +1,5 @@
+.lake/
+.tools/
+.ghconfig/
+.DS_Store
+*.log

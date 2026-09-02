@@ -1,0 +1,19 @@
+name = "high-band-lsv-2609-01295"
+version = "0.1.0"
+defaultTargets = ["HighBandLSV", "Section5Formalization"]
+
+[[lean_lib]]
+name = "HighBandLSV"
+
+[[lean_lib]]
+name = "Section5Formalization"
+
+[[require]]
+name = "ginibre-lsv"
+git = "https://github.com/hanyi162013-Yihan/ginibre-lsv-lean.git"
+rev = "2ccbb3788ae35e00e5d26d3e1bde3bf2adcd8018"
+
+[[require]]
+name = "livshyts-projection-formalization"
+git = "https://github.com/hanyi162013-Yihan/projection-density-theorem-formalization.git"
+rev = "fd0f76fbcde3b5909d5a9ab41ed4cb5d60da1032"
