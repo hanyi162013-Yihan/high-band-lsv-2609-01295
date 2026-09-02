@@ -1,0 +1,95 @@
+name: Lean proof check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.lean'
+      - 'lakefile.toml'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - '.github/workflows/lean.yml'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lean-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  proof-check:
+    name: Compile Lean and audit proof dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      LEAN_NUM_THREADS: 2
+    steps:
+      - name: Check out the exact submitted revision
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Restore pinned Lean and dependency cache
+        id: deps
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            ~/.elan
+            .lake/packages
+          key: ${{ runner.os }}-lean-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Install Lean version manager
+        shell: bash
+        run: |
+          if [ ! -x "$HOME/.elan/bin/elan" ]; then
+            curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          fi
+          printf '%s\n' "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Download the pinned Mathlib compiled dependencies
+        shell: bash
+        run: |
+          lean --version
+          lake exe cache get
+
+      - name: Save dependencies even if a later proof fails
+        if: steps.deps.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            ~/.elan
+            .lake/packages
+          key: ${{ steps.deps.outputs.cache-primary-key }}
+
+      - name: Compile every project library from source
+        shell: bash
+        run: lake build 2>&1 | tee lean-build.log
+
+      - name: Check the main theorem and planar proof axiom lists
+        shell: bash
+        run: |
+          lake env lean AxiomAudit.lean 2>&1 | tee axiom-audit.log
+          awk '
+            /depends on axioms:/ {
+              count++
+              line = $0
+              while (line !~ /\]/ && (getline more) > 0) line = line more
+              sub(/^.*depends on axioms: \[/, "", line)
+              sub(/\].*$/, "", line)
+              gsub(/propext|Classical[.]choice|Quot[.]sound|[[:space:],]/, "", line)
+              if (length(line)) { print "Unexpected axiom: " line; bad = 1 }
+            }
+            /does not depend on any axioms/ { count++ }
+            END {
+              if (count != 6) { print "Expected six audited declarations; found " count; bad = 1 }
+              exit bad
+            }
+          ' axiom-audit.log
+
+      - name: Record the successfully checked revision
+        shell: bash
+        run: |
+          printf '### Lean verification passed\n\nCommit: `%s`\n\nAll default libraries compiled from source. Six public declarations passed the axiom whitelist (propext, Classical.choice, Quot.sound). Mathematical hypotheses remain hypotheses; see STATUS.md.\n' "$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"

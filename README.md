@@ -8,7 +8,7 @@ The source labels the result **Theorem 3.1**, rather than Proposition 3.1.
 
 This repository proves the deterministic estimates, partition arithmetic, exponent ledger, eventual numerical closure, and the final implication from an explicit probabilistic certificate. It does **not** claim a complete proof of the paper's theorem directly from the random matrix model assumptions.
 
-The remaining probabilistic inputs are fields of `HighBandLSV.AppendixBInputs`, not additional Lean axioms. They include a covering of the bad-normal event, a fixed-index small-ball estimate, and a good-normal column-distance estimate. Constructing these fields from the atom laws and variance profile remains outside this standalone formalization. In particular, the general complex planar-density case needs its own maximum-density input; the real projection theorem alone does not establish that case.
+The remaining probabilistic inputs are fields of `HighBandLSV.AppendixBInputs`, not additional Lean axioms. They include a covering of the bad-normal event, a fixed-index small-ball estimate, and a good-normal column-distance estimate. Constructing these fields from the atom laws and variance profile remains outside this standalone formalization. `PlanarSmallBall.lean` supplies an elementary general-complex density bound with a dimension factor, without assuming independence of real and imaginary parts or another analytic theorem. Its scalar entropy and final-threshold absorption estimates are included. Connecting these ingredients to a concrete matrix-model certificate is still pending; see `PLANAR.md`.
 
 See [STATUS.md](STATUS.md) for the precise correspondence and outstanding work.
 
