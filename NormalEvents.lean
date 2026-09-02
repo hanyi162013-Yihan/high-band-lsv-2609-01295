@@ -45,6 +45,7 @@ private theorem compactUnitSphere (E : Type*) [NormedAddCommGroup E] [ProperSpac
   convert isCompact_sphere (0 : E) (1 : Real) using 1
   ext u
   simp only [Metric.mem_sphere, dist_zero_right, mem_setOf_eq]
+  rfl
 
 instance unitVec_compact (N : Nat) : CompactSpace (UnitVec N) :=
   compactUnitSphere (Vec N)
