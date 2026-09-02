@@ -34,7 +34,6 @@ theorem inner_shifted_column (j : Fin N) (u : CV (Fin N)) (omega : Sample N) (z 
   rw [MatrixGeometry.inner_shifted_column]
   rfl
 
-set_option pp.all true in
 theorem constraint_probability (u : CV (Fin N)) (S : Finset (Fin N)) (z : Complex) (d : Real) :
     m.law ((fun omega => shifted (m.matrix omega) z) ⁻¹' NormalNetEvents.constraint u S d) =
       ∏ j ∈ S, m.columnLaw j {x | ‖m.linearForm j u x - star (u j) * z‖ ≤ d} := by

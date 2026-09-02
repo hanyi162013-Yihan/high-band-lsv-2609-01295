@@ -20,7 +20,7 @@ theorem real_lsv_from_bad_normals
     (hB : ∀ j i, i ∈ B j → Section5Formalization.cyclicDist (n + 1) i j ≤ W)
     (hd : 0 < d) (hs : 0 ≤ s)
     (hbad : m.law (hsEvent m.matrix R \ m.goodNormalEvent z B d) ≤ ENNReal.ofReal Bbad) :
-    m.law (lsvBad (fun omega => shifted (m.matrix omega) z) s ∩ hsEvent m.matrix R) ≤
+    m.law (leastSingularBadEvent (fun omega => shifted (m.matrix omega) z) s ∩ hsEvent m.matrix R) ≤
       ENNReal.ofReal ((n + 1 : Nat) *
         ((2 * Real.sqrt 2 * Real.exp 1 * rho / Real.sqrt c) *
           Real.sqrt W * (s * Real.sqrt (n + 1 : Nat)) / d)) + ENNReal.ofReal Bbad := by

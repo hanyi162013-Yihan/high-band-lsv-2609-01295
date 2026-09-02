@@ -43,7 +43,7 @@ theorem actual_endpoint_bound
     (hlarge : mesh N W kappa J C1 K / (4 * Real.sqrt J) ≤ wl) :
     wk / wl ≤ A * (K + 1) * J * delta N W kappa := by
   apply (Anisotropic.actual_endpoint_ratio hJ hC1 hK hwk hsmall hlarge).trans
-  have hd : 0 ≤ delta N W kappa := by unfold delta; positivity
+  have hd : 0 ≤ delta N W kappa := (delta_pos N W kappa).le
   exact mul_le_mul_of_nonneg_right
     (mul_le_mul_of_nonneg_right
       (mul_le_mul_of_nonneg_right hA (by positivity)) hJ.le) hd

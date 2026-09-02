@@ -14,8 +14,6 @@ import AnisotropicMesh
 #check HighBandLSV.RealNormalNetEvents.endpoint_labels_card
 #check HighBandLSV.RealRawBound.actual_fixedEnvelope_le_raw
 #check HighBandLSV.BlockGeometry.Partition.sum_card_blocks
-#check HighBandLSV.ModelNumerics.certificate_dimension_loss_union
-#check HighBandLSV.FiniteProbability.finite_union_bound
 #check HighBandLSV.planar_bad_normals_from_numerics
 #check HighBandLSV.planar_model_lsv_of_numerics
 #check HighBandLSV.eventually_planar_band_lsv
@@ -23,4 +21,12 @@ import AnisotropicMesh
 #check HighBandLSV.certificate_dimension_loss_union
 #check HighBandLSV.ModelPartition.actual
 #check HighBandLSV.RadialRawBound.actual_fixedEnvelope_le_raw
-#check HighBandLSV.FixedNormalProbability.fixed_probability
+#check HighBandLSV.MeshParameters.actual_mesh_bounds
+#check HighBandLSV.Anisotropic.actual_mesh_quarter
+#check HighBandLSV.eventually_model_numerics
+#check HighBandLSV.ModelPartition.retained_rows_fit
+#check HighBandLSV.ModelPartition.local_band
+#check HighBandLSV.ModelPartition.columnBlock
+#check HighBandLSV.ModelPartition.columnBlock_local
+#check HighBandLSV.dimension_loss_column_union_bound
+#check HighBandLSV.MatrixGeometry.hs_cutoff_column_bound
