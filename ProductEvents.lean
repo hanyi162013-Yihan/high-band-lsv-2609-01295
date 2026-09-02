@@ -15,14 +15,14 @@ namespace HighBandLSV.ProductEvents
   have he : {omega | ∀ i ∈ S, omega i ∈ E i} =
       Set.univ.pi (fun i => if i ∈ S then E i else Set.univ) := by
     ext omega
-    simp only [Set.mem_setOf_eq, Set.mem_pi, Set.mem_univ, true_imp]
+    simp only [Set.mem_setOf_eq, Set.mem_pi, Set.mem_univ]
     constructor
-    · intro h i
+    · intro h i _
       by_cases hi : i ∈ S
       · simpa only [if_pos hi] using h i hi
       · simp only [if_neg hi, Set.mem_univ]
     · intro h i hi
-      simpa only [if_pos hi] using h i
+      simpa only [if_pos hi] using h i True.intro
   rw [he, Measure.pi_pi]
   simp only [apply_ite, measure_univ]
   calc

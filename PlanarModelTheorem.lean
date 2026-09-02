@@ -85,7 +85,7 @@ theorem planar_model_lsv_of_numerics
         _ _ good cap hcap hbad hcol
     _ ≤ ENNReal.ofReal (Real.sqrt (Real.pi * L / c) * t) +
         ENNReal.ofReal (Real.exp (-((n + 1 : Nat) : Real) ^ (1 + kappa / 4))) :=
-      add_le_add_right (ENNReal.ofReal_le_ofReal hsum) _
+      add_le_add (ENNReal.ofReal_le_ofReal hsum) le_rfl
 
 /-- Uniform in the bounded spectral parameter and in the small-ball parameter.
 Every numerical and probabilistic interface is discharged from the actual model. -/

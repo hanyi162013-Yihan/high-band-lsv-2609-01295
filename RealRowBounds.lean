@@ -118,7 +118,8 @@ theorem anisotropic_row_probability
     rcases radius_dichotomy hh q.2.2.1 with hyzero | hylarge
     · have hyz : yRadius q = 0 := hyzero
       have hw : labelWeight q = xRadius q * h := by
-        simp [labelWeight, max_eq_left hxlarge, hyz, hh.le]
+        rw [labelWeight, max_eq_left (show h ≤ xRadius q from hxlarge), hyz,
+          max_eq_right hh.le]
       have hp := m.linearForm_one_small_ball hGBL hrho j v hap w' hd.le
       rw [hevent] at hp
       have hn := rank_one_to_mesh_bound (by positivity : 0 ≤ 2 * (Real.exp 1 * rho))
