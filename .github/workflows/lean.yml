@@ -90,7 +90,7 @@ jobs:
             }
             /does not depend on any axioms/ { count++ }
             END {
-              if (count != 6) { print "Expected six audited declarations; found " count; bad = 1 }
+              if (count != 14) { print "Expected fourteen audited declarations; found " count; bad = 1 }
               exit bad
             }
           ' axiom-audit.log
@@ -98,4 +98,4 @@ jobs:
       - name: Record the successfully checked revision
         shell: bash
         run: |
-          printf '### Lean verification passed\n\nCommit: `%s`\n\nAll default libraries compiled from source. Six public declarations passed the axiom whitelist (propext, Classical.choice, Quot.sound). Mathematical hypotheses remain hypotheses; see STATUS.md.\n' "$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
+          printf '### Lean verification passed\n\nCommit: `%s`\n\nAll default libraries compiled from source. Fourteen public declarations passed the axiom whitelist (propext, Classical.choice, Quot.sound). Mathematical hypotheses remain hypotheses; see STATUS.md.\n' "$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"

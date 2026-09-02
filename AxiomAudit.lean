@@ -1,4 +1,5 @@
-import PlanarSmallBall
+import MatrixColumnBound
+import PlanarNets
 
 #print axioms HighBandLSV.eventually_high_band_lsv
 #print axioms HighBandLSV.eventually_actual_numerics
@@ -6,3 +7,11 @@ import PlanarSmallBall
 #print axioms HighBandLSV.Planar.sum_small_ball
 #print axioms HighBandLSV.dimension_loss_normal_union
 #print axioms HighBandLSV.dimension_loss_final_gap
+#print axioms HighBandLSV.PlanarBandModel.selected_rows_small_ball
+#print axioms HighBandLSV.PlanarBandModel.finite_net_small_ball
+#print axioms HighBandLSV.ColumnExposure.expose_preserving
+#print axioms HighBandLSV.ColumnExposure.moving_block_small_ball
+#print axioms HighBandLSV.NormalEvents.measurableSet_good
+#print axioms HighBandLSV.NormalEvents.exists_unit_normal
+#print axioms HighBandLSV.PlanarBandModel.column_distance_small_ball
+#print axioms HighBandLSV.PlanarNets.exists_annular_net

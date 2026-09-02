@@ -17,6 +17,12 @@ noncomputable section
 
 namespace HighBandLSV
 
+instance complexMatrixMeasurableSpace (N : Nat) :
+    MeasurableSpace (Matrix (Fin N) (Fin N) Complex) := borel _
+
+instance complexMatrixBorelSpace (N : Nat) : BorelSpace (Matrix (Fin N) (Fin N) Complex) :=
+  ⟨rfl⟩
+
 abbrev AtomColumn (N : Nat) := Fin N → Complex
 abbrev MatrixSample (N : Nat) := Fin N → AtomColumn N
 
@@ -53,13 +59,11 @@ instance law_probability : IsProbabilityMeasure m.law := by
 def matrix (omega : MatrixSample N) : Matrix (Fin N) (Fin N) Complex :=
   fun i j => (m.sigma i j : Complex) * omega j i
 
-theorem measurable_matrix : Measurable m.matrix := by
-  unfold matrix
-  fun_prop
-
 theorem continuous_matrix : Continuous m.matrix := by
   unfold matrix
   fun_prop
+
+theorem measurable_matrix : Measurable m.matrix := m.continuous_matrix.measurable
 
 theorem atom_marginal (j i : Fin N) :
     Measure.map (fun x : AtomColumn N => x i) (m.columnLaw j) = m.atomLaw j i := by
@@ -80,6 +84,7 @@ theorem independent_column_atoms (j : Fin N) :
   exact iIndepFun_pi (fun _ => measurable_id.aemeasurable)
 
 /-- Row normalization supplies the paper's upper bandwidth bound. -/
+include m in
 theorem bandwidth_le (hN : 0 < N) (hW : 0 < W) :
     (W : Real) ≤ C * N := by
   let i : Fin N := ⟨0, hN⟩
@@ -185,7 +190,8 @@ row-independence needed for the deleted-row adjoint, not independence of rows of
 theorem independent_linearForms (u : Fin N → Fin N → Complex) (w : Fin N → Complex) :
     iIndepFun (fun j (omega : MatrixSample N) =>
       m.linearForm j (u j) (omega j) - w j) m.law := by
-  apply iIndepFun_pi
+  apply iIndepFun_pi (μ := m.columnLaw)
+    (X := fun j x => m.linearForm j (u j) x - w j)
   intro j
   apply Measurable.aemeasurable
   unfold linearForm
@@ -208,8 +214,13 @@ theorem selected_rows_probability (u : Fin N → Fin N → Complex) (w : Fin N �
   rw [htarget, heq]
   apply Finset.prod_congr rfl
   intro j _
-  exact (measurePreserving_eval m.columnLaw j).measure_preimage
-    (by apply MeasurableSet.nullMeasurableSet; unfold linearForm; fun_prop)
+  let T : Set (AtomColumn N) := {x | ‖m.linearForm j (u j) x - w j‖ ≤ s}
+  have hf : Measurable (fun x : AtomColumn N => ‖m.linearForm j (u j) x - w j‖) := by
+    unfold linearForm
+    fun_prop
+  have hT : MeasurableSet T := measurableSet_le hf measurable_const
+  change m.law ((fun omega : MatrixSample N => omega j) ⁻¹' T) = m.columnLaw j T
+  exact (measurePreserving_eval m.columnLaw j).measure_preimage hT.nullMeasurableSet
 
 /-- The fixed-vector product estimate follows from the concrete atom laws. -/
 theorem selected_rows_small_ball (hL : 0 ≤ L)
@@ -288,17 +299,22 @@ theorem moving_linearForm_small_ball (hL : 0 ≤ L)
   let event : Set (AtomColumn (n + 1) × Rest (n := n)) :=
     {p | p.2 ∈ G ∧ ‖m.linearForm j (u p.2) p.1 - w p.2‖ ≤ s}
   have hevent : MeasurableSet event := by
-    apply (hG.preimage measurable_snd).inter
-    apply measurableSet_le _ measurable_const
-    unfold PlanarBandModel.linearForm PlanarBandModel.coefficients
-    fun_prop
+    have hf : Measurable (fun p : AtomColumn (n + 1) × Rest (n := n) =>
+        ‖m.linearForm j (u p.2) p.1 - w p.2‖) := by
+      unfold PlanarBandModel.linearForm PlanarBandModel.coefficients
+      fun_prop
+    exact (hG.preimage measurable_snd).inter (measurableSet_le hf measurable_const)
   change m.law ((expose j) ⁻¹' event) ≤ _
   rw [(expose_preserving m j).measure_preimage hevent.nullMeasurableSet]
   apply GinibreLSV.prod_measure_le_of_forall_left_fiber _ _ event hevent
   intro rest
   by_cases hrest : rest ∈ G
-  · simpa only [event, mem_preimage, mem_setOf_eq, hrest, true_and] using
-      m.linearForm_small_ball_of_energy_lower hL j (u rest) hE (henergy rest hrest) (w rest) hs
+  · have hfiber : (fun x : AtomColumn (n + 1) => (x, rest)) ⁻¹' event =
+        {x | ‖m.linearForm j (u rest) x - w rest‖ ≤ s} := by
+      ext x
+      simp [event, hrest]
+    rw [hfiber]
+    exact m.linearForm_small_ball_of_energy_lower hL j (u rest) hE (henergy rest hrest) (w rest) hs
   · have hempty : (fun x : AtomColumn (n + 1) => (x, rest)) ⁻¹' event = ∅ := by
       ext x
       simp [event, hrest]
