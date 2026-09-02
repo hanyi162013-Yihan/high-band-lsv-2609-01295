@@ -10,6 +10,8 @@ noncomputable section
 
 namespace HighBandLSV.FixedNormalProbability
 
+local instance (p : Prop) : Decidable p := Classical.propDecidable p
+
 theorem admissible_card_bound {J : Nat} {h delta : Real} (k l : Fin J)
     (hh : 0 < h) (hh1 : h ≤ 1) :
     let Q := {q : RadialNetAssembly.Labels J h // NormalNetEvents.admissible h delta k l q}
@@ -98,7 +100,7 @@ theorem bad_normal_probability {N J W r : Nat} {c C L A h K delta : Real}
   let E : Q → Set (MatrixSample N) := fun q =>
     (fun omega => shifted (m.matrix omega) z) ⁻¹'
       NormalNetEvents.fixedBad p q.1 q.2.1 q.2.2 K delta
-  have hcover := NormalNetEvents.normal_cover p hJ (hh.trans_le hhd)
+  have hcover := NormalNetEvents.normal_cover p hJ (K := K) (hh.trans_le hhd)
   have hsubset : (fun omega => shifted (m.matrix omega) z) ⁻¹'
       (NormalNetEvents.columnCap K \ NormalNetEvents.normalSpread p delta) ⊆ ⋃ q : Q, E q := by
     intro omega homega

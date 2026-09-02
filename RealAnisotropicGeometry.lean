@@ -29,7 +29,8 @@ def join (a b : RV I) : CV I := WithLp.toLp 2 (fun i => (a i : Complex) + (b i :
 
 theorem norm_join_sq (a b : RV I) : ‖join a b‖ ^ 2 = ‖a‖ ^ 2 + ‖b‖ ^ 2 := by
   simp [PiLp.norm_sq_eq_of_L2, join, Complex.sq_norm, Complex.normSq_apply,
-    Finset.sum_add_distrib, Real.norm_eq_abs, sq_abs, pow_two]
+    Finset.sum_add_distrib, Real.norm_eq_abs, sq_abs]
+  simp only [pow_two]
 
 theorem parts_norm_sq (u : CV I) : ‖u‖ ^ 2 = ‖realPart u‖ ^ 2 + ‖imagPart u‖ ^ 2 := by
   rw [← norm_join_sq, join_parts]
