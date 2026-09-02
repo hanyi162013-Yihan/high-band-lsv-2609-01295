@@ -1,3 +1,6 @@
+import ModelStatements
+import NormalKernelIdentity
+
 import UniformModelExample
 import ModelLawTransport
 
@@ -33,3 +36,8 @@ import PlanarNets
 #print axioms HighBandLSV.Examples.eventually_uniform_dense_lsv
 #print axioms HighBandLSV.ModelLawTransport.real_matrix_law
 #print axioms HighBandLSV.ModelLawTransport.planar_matrix_law
+#check HighBandLSV.ModelStatements.real_main_statement
+#check HighBandLSV.ModelStatements.planar_main_statement
+#print axioms HighBandLSV.ModelStatements.real_main_statement
+#print axioms HighBandLSV.ModelStatements.planar_main_statement
+#print axioms HighBandLSV.NormalKernelIdentity.isNormal_iff_ker

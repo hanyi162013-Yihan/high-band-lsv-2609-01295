@@ -85,7 +85,7 @@ jobs:
               if (length(line) != 0) { print "Unexpected proof dependency: " $0; bad = 1 }
             }
             END {
-              if (count != 22) { print "Expected 22 axiom reports, received " count; bad = 1 }
+              if (count != 25) { print "Expected 25 axiom reports, received " count; bad = 1 }
               exit bad
             }
           ' axiom-audit.log
@@ -97,7 +97,7 @@ jobs:
             printf '## Lean proof check\n\n'
             printf 'Checked source revision: `%s`\n\n' "$GITHUB_SHA"
             printf 'Every registered project library was compiled from source.\n\n'
-            printf 'All 22 selected dependency reports contain only propext, Classical.choice, and Quot.sound.\n'
+            printf 'All 25 selected dependency reports contain only propext, Classical.choice, and Quot.sound.\n'
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Save compiled dependencies even if a project proof needs repair
@@ -108,3 +108,24 @@ jobs:
             ~/.elan
             .lake/packages
           key: ${{ runner.os }}-lean-compiled-dependencies-v3-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Check source policy and complete module coverage
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t sources < <(git ls-files '*.lean')
+          if rg -n '\b(sorry|admit|unsafe)\b|^\s*(private\s+|protected\s+)?axiom\b' -- "${sources[@]}"; then
+            printf 'A forbidden proof placeholder or declaration was found.\n' >&2
+            exit 1
+          fi
+          for source in "${sources[@]}"; do
+            if [[ "$source" == AxiomAudit.lean ]]; then
+              continue
+            fi
+            artifact=".lake/build/lib/lean/${source%.lean}.olean"
+            if [[ ! -f "$artifact" ]]; then
+              printf 'Missing compiled module for %s\n' "$source" >&2
+              exit 1
+            fi
+          done
+          printf 'Source policy and module coverage checked for %s Lean files.\n' "${#sources[@]}"

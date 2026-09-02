@@ -15,8 +15,10 @@ def centeredUniformDensity (N : Nat) : CoordinateDensityData Real N 1 where
     norm_num [Real.volume_Icc]
   pdf_le _ x := by
     by_cases hx : x ∈ Set.Icc (-1 / 2 : Real) (1 / 2)
-    · simp [hx]
-    · simp [hx]
+    · rw [Set.indicator_of_mem hx]
+      norm_num
+    · rw [Set.indicator_of_notMem hx]
+      exact bot_le
 
 /-- The raw coordinates are uniform on `[-1/2,1/2]`; the deterministic profile
 has exactly normalized squared row sums. No moment assumption is used by the
