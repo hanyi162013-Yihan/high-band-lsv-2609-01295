@@ -147,7 +147,12 @@ theorem sum_le_volume_of_coefficient
   have hind' : IndepFun (∑ j ∈ Finset.univ.erase k, Z j) (Z k) P :=
     hZI.indepFun_finsetSum_of_notMem hZ (by simp)
   have hind : IndepFun (Z k) (fun omega => ∑ j ∈ Finset.univ.erase k, Z j omega) P := by
-    simpa only [Finset.sum_apply] using hind'.symm
+    have heq : (∑ j ∈ Finset.univ.erase k, Z j) =
+        (fun omega => ∑ j ∈ Finset.univ.erase k, Z j omega) := by
+      funext omega
+      simp only [Finset.sum_apply]
+    rw [heq] at hind'
+    exact hind'.symm
   have hscale : Measure.map (Z k) P ≤
       ENNReal.ofReal (L / ‖a k‖ ^ 2) • (volume : Measure Complex) := by
     have h := map_mul_le_volume hL (hD k) hak
