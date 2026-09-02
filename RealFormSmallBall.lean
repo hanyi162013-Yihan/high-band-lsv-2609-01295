@@ -57,6 +57,8 @@ variable {Omega : Type*} [MeasurableSpace Omega] {P : Measure Omega}
 variable [IsProbabilityMeasure P] {xi : Omega → RV (Fin N)} {rho C : Real}
 variable (data : HighBandLSV.Real.OneTwoProjectionDensityInterface Omega N P xi rho C)
 
+include data
+
 theorem form_one_small_ball (a b : RV (Fin N)) (ha : 0 < ‖a‖)
     (w : Complex) {s : Real} (hs : 0 ≤ s) :
     P {omega | ‖form a b (xi omega) - w‖ ≤ s} ≤
@@ -90,16 +92,16 @@ theorem form_two_small_ball (a b : RV (Fin N))
     P {omega | ‖form a b (xi omega) - w‖ ≤ s} ≤
       ENNReal.ofReal (min 1 (8 * (C * rho ^ 2) * s ^ 2 / (‖a‖ * ‖residual a b‖))) := by
   by_cases hdom : ‖b‖ ≤ ‖a‖
-  · have ha : 0 < ‖a‖ := (mul_pos_iff_of_nonneg (norm_nonneg a)
-        (norm_nonneg (residual a b))).mp hgram |>.1
-    have hr : 0 < ‖residual a b‖ := (mul_pos_iff_of_nonneg (norm_nonneg a)
-        (norm_nonneg (residual a b))).mp hgram |>.2
+  · obtain ⟨ha, hr⟩ : 0 < ‖a‖ ∧ 0 < ‖residual a b‖ := by
+      rcases mul_pos_iff.mp hgram with h | h
+      · exact h
+      · exact (not_lt_of_ge (norm_nonneg a) h.1).elim
     exact form_two_small_ball_dominant data a b hdom ha hr w hs
   · have hswap : 0 < ‖b‖ * ‖residual b a‖ := by rw [← gram_product_symm]; exact hgram
-    have hb : 0 < ‖b‖ := (mul_pos_iff_of_nonneg (norm_nonneg b)
-        (norm_nonneg (residual b a))).mp hswap |>.1
-    have hr : 0 < ‖residual b a‖ := (mul_pos_iff_of_nonneg (norm_nonneg b)
-        (norm_nonneg (residual b a))).mp hswap |>.2
+    obtain ⟨hb, hr⟩ : 0 < ‖b‖ ∧ 0 < ‖residual b a‖ := by
+      rcases mul_pos_iff.mp hswap with h | h
+      · exact h
+      · exact (not_lt_of_ge (norm_nonneg b) h.1).elim
     have h := form_two_small_ball_dominant data b a (by linarith) hb hr (swapComplex w) hs
     have hevent : {omega | ‖form b a (xi omega) - swapComplex w‖ ≤ s} =
         {omega | ‖form a b (xi omega) - w‖ ≤ s} := by

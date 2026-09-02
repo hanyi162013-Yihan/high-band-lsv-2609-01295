@@ -137,8 +137,6 @@ theorem heavy_block_weight {h J : Real} (hh : 0 < h) (hJ : 0 < J)
     apply (div_le_iff₀ (by positivity : 0 < 4 * Real.sqrt J)).2
     nlinarith [mul_le_mul_of_nonneg_right hn hs.le,
       mul_le_mul_of_nonneg_right hupp hs.le]
-  have hm := mul_le_mul hx (le_max_right (yRadius q) h) hh.le
-    (le_trans hh.le (le_max_right (xRadius q) h))
   have hxx := le_max_left (xRadius q) h
   unfold labelWeight
   calc

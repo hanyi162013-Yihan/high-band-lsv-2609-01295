@@ -16,8 +16,7 @@ theorem scaled_one_bound {K s c W d a : Real}
       div_le_div_of_nonneg_left (mul_nonneg hK hs) hden ha
     _ = (K / Real.sqrt c) * Real.sqrt W * s / d := by
       rw [Real.sqrt_div hc.le]
-      field_simp
-      ring
+      field_simp <;> ring
 
 theorem two_dimensional_bound {K c W x y g d A : Real}
     (hK : 0 ≤ K) (hc : 0 < c) (hW : 0 < W) (hx : 0 < x) (hy : 0 < y)
@@ -26,7 +25,7 @@ theorem two_dimensional_bound {K c W x y g d A : Real}
   calc
     K * d ^ 2 / g ≤ K * d ^ 2 / ((c / W) * (x * y)) :=
       div_le_div_of_nonneg_left (by positivity) (by positivity) hg
-    _ = (K / c) * W * d ^ 2 / (x * y) := by field_simp; ring
+    _ = (K / c) * W * d ^ 2 / (x * y) := by field_simp <;> ring
     _ ≤ A * W * d ^ 2 / (x * y) := by gcongr
 
 theorem rank_one_to_mesh_bound {K c W x a d h A : Real}

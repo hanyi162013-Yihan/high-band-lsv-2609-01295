@@ -10,5 +10,4 @@ import MeshParameters
 #print prefix HighBandLSV.PathGeometry
 #print prefix HighBandLSV.BlockGeometry
 #print prefix Section5Formalization
-#print prefix HighBandLSV.MatrixColumnBound
 #print prefix HighBandLSV.RadialNetAssembly
