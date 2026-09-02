@@ -139,7 +139,7 @@ def chooseRows {N J : Nat} (p : Partition N J) (i : Fin N) (r : Nat)
     rows := rows
     subset := fun j => (hrows j).1.trans (Finset.erase_subset _ _)
     avoids := fun j hi => (Finset.mem_erase.mp ((hrows j).1 hi)).1 rfl
-    card := fun j => by simpa using (hrows j).2 }
+    card := fun j => by simpa [rows] using (hrows j).2 }
 
 namespace RowSelection
 

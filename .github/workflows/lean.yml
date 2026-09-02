@@ -42,8 +42,9 @@ jobs:
           path: |
             ~/.elan
             .lake/packages
-          key: ${{ runner.os }}-lean-compiled-dependencies-v2-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+          key: ${{ runner.os }}-lean-compiled-dependencies-v3-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
           restore-keys: |
+            ${{ runner.os }}-lean-compiled-dependencies-v2-
             ${{ runner.os }}-lean-deps-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
 
       - name: Install Lean version manager
@@ -106,4 +107,4 @@ jobs:
           path: |
             ~/.elan
             .lake/packages
-          key: ${{ runner.os }}-lean-compiled-dependencies-v2-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+          key: ${{ runner.os }}-lean-compiled-dependencies-v3-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}

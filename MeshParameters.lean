@@ -16,7 +16,7 @@ theorem geometric_mesh_bounds {d J C1 K : Real}
   have hbase0 : 0 < C1 * (K + 1) := by linarith
   have hden : 1 ≤ C1 * (K + 1) * Real.sqrt J :=
     hs1.trans (by simpa using mul_le_mul_of_nonneg_right
-      (show 1 ≤ C1 * (K + 1) by linarith) hs.le)
+      (show 1 ≤ C1 * (K + 1) from by linarith) hs.le)
   have hh : 0 < d / (C1 * (K + 1) * Real.sqrt J) := by positivity
   have hhd : d / (C1 * (K + 1) * Real.sqrt J) ≤ d := by
     apply (div_le_iff₀ (mul_pos hbase0 hs)).2
