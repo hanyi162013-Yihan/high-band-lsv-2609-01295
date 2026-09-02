@@ -34,6 +34,7 @@ theorem inner_shifted_column (j : Fin N) (u : CV (Fin N)) (omega : Sample N) (z 
   rw [MatrixGeometry.inner_shifted_column]
   rfl
 
+set_option pp.all true in
 theorem constraint_probability (u : CV (Fin N)) (S : Finset (Fin N)) (z : Complex) (d : Real) :
     m.law ((fun omega => shifted (m.matrix omega) z) ⁻¹' NormalNetEvents.constraint u S d) =
       ∏ j ∈ S, m.columnLaw j {x | ‖m.linearForm j u x - star (u j) * z‖ ≤ d} := by
@@ -42,7 +43,7 @@ theorem constraint_probability (u : CV (Fin N)) (S : Finset (Fin N)) (z : Comple
     ext omega
     simp only [Set.mem_preimage, NormalNetEvents.constraint, Set.mem_setOf_eq, m.inner_shifted_column]
   rw [he]
-  simpa only [law] using ProductEvents.finite_constraints m.columnLaw S
+  simpa only [law, Set.mem_setOf_eq] using ProductEvents.finite_constraints m.columnLaw S
     (fun j => {x | ‖m.linearForm j u x - star (u j) * z‖ ≤ d})
 
 end HighBandLSV.RealBandModel

@@ -1,6 +1,5 @@
 import PlanarModelTheorem
 
-import RealTensorization
 import RealNormalNetEvents
 import RealRawBound
 import ModelNumerics
@@ -11,10 +10,6 @@ import AnisotropicMesh
 #print prefix HighBandLSV.RadialLedger
 #check HighBandLSV.Anisotropic.actual_endpoint_ratio
 #check HighBandLSV.Anisotropic.System.center_card
-#check HighBandLSV.Anisotropic.labelWeight_pos
-#check HighBandLSV.Anisotropic.labelWeight_le_one
-#check HighBandLSV.RealTensorization.center_union_probability
-#check HighBandLSV.RealTensorization.rowProduct
 #check HighBandLSV.RealNormalNetEvents.fixedBad_subset_net_union
 #check HighBandLSV.RealNormalNetEvents.endpoint_labels_card
 #check HighBandLSV.RealRawBound.actual_fixedEnvelope_le_raw

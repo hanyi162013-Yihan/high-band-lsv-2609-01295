@@ -62,8 +62,10 @@ theorem measurable_reconstructedMatrix (j : Fin (n + 1)) : Measurable (m.reconst
 
 theorem measurable_reconstructedShift (j : Fin (n + 1)) (z : Complex) :
     Measurable (fun p => shifted (m.reconstructedMatrix j p) z) := by
-  unfold shifted
-  exact (m.measurable_reconstructedMatrix j).sub measurable_const
+  have hs : Continuous (fun A : NormalEvents.Mat (n + 1) => shifted A z) := by
+    unfold shifted
+    fun_prop
+  exact hs.measurable.comp (m.measurable_reconstructedMatrix j)
 
 theorem measurable_frozenShift (j : Fin (n + 1)) (z : Complex) :
     Measurable (fun rest => shifted (m.frozenMatrix j rest) z) :=
