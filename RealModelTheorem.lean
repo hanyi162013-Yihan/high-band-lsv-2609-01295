@@ -90,10 +90,10 @@ theorem eventually_real_band_lsv
     (hGBL : RealFiniteGeometricBrascampLieb) (hc : 0 < c) (hrho : 0 < rho)
     (hchi : 0 < chi) (hk : 0 < kappa) (hR : 0 ≤ R) (hKz : 0 ≤ Kz) (hCw : 1 ≤ Cw)
     (W : Nat → Nat) (m : ∀ n, RealBandModel n (W n) c C rho)
-    (hWp : ∀ᶠ n in Filter.atTop, 0 < W n)
-    (hband : ∀ᶠ n in Filter.atTop, (n : Real) ^ (1 / 2 + chi) ≤ W n)
-    (hupper : ∀ᶠ n in Filter.atTop, (W n : Real) ≤ Cw * n) :
-    ∀ᶠ n in Filter.atTop, ∀ z : Complex, ‖z‖ ≤ Kz → ∀ t : Real, 0 ≤ t →
+    (hWp : ∀ᶠ (n : Nat) in Filter.atTop, 0 < W n)
+    (hband : ∀ᶠ (n : Nat) in Filter.atTop, (n : Real) ^ (1 / 2 + chi) ≤ W n)
+    (hupper : ∀ᶠ (n : Nat) in Filter.atTop, (W n : Real) ≤ Cw * n) :
+    ∀ᶠ (n : Nat) in Filter.atTop, ∀ z : Complex, ‖z‖ ≤ Kz → ∀ t : Real, 0 ≤ t →
       (m n).law (leastSingularBadEvent (fun omega => shifted ((m n).matrix omega) z)
           (tau n (W n) kappa t) ∩ hsEvent (m n).matrix R) ≤
         ENNReal.ofReal ((2 * Real.sqrt 2 * Real.exp 1 * rho / Real.sqrt c) * t) +
