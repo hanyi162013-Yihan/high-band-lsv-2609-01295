@@ -23,7 +23,7 @@ theorem profile_bandwidth_upper {N W : Nat} {C : Real}
   have hratio : (1 : Real) ≤ ((N : Real) * C) / (W : Real) := by
     simpa only [mul_div_assoc] using hsum
   have hmul := (le_div_iff₀ hWreal).mp hratio
-  simpa only [one_mul, mul_comm] using hmul
+  simpa only [one_mul, mul_one, mul_comm] using hmul
 
 theorem real_profile_bandwidth_upper {N W : Nat} {c C rho : Real}
     (m : RealBandModel N W c C rho) (hN : 0 < N) (hW : 0 < W) :
