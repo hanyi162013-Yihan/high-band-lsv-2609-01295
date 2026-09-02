@@ -1,48 +1,20 @@
-# Elementary planar density route
+# Planar complex entry laws
 
-For independent complex random variables with planar densities at most L, and
-nonzero coefficient vector a of length m, the new proof gives
+The planar branch allows a bounded two-dimensional density for each complex raw entry. It does not factor that density into separate real and imaginary densities, and does not assume those two parts are independent.
 
-    density(sum_j a_j eta_j) <= m L / sum_j ||a_j||^2.
+For a normal vector with block mass at least `delta^2`, a sufficiently large coordinate supplies a one-entry density bound. Conditioning/convolution over the other independent entries preserves the density upper bound. The resulting quadratic small-ball bound can retain a factor `N`; `QuadraticLinearization.planar_column_linearization` converts it to a linear bound.
 
-It does not assume independence of real and imaginary parts. Choose a largest
-coefficient, scale its density using the real determinant of complex
-multiplication, and average its independent random translates. A
-Radon-Nikodym argument constructs an actual bounded density, not merely a
-small-ball inequality. Integration over a disk gives the corresponding
-quadratic small-ball estimate, capped at one.
+At the block-net stage the complex block has real dimension twice its complex dimension. Radial labels, actual internal centers, selected-row tensorization, and cyclic path cancellation produce a raw probability expression. `certificate_dimension_loss_union` absorbs the conservative dimension loss as well as the endpoint and column unions.
 
-## Declaration map
+The main declarations are:
 
-| Step | Declaration in `HighBandLSV` | Scope |
-| --- | --- | --- |
-| Real Jacobian of complex multiplication | `Planar.det_mulLinear`, `Planar.map_volume_mul` | Algebra and Haar measure |
-| Scaling a dominated law | `Planar.map_mul_le_volume` | Measure domination |
-| Independent random translation | `Planar.independent_add_le_volume` | Product law and integration |
-| Largest-coefficient selection | `Planar.exists_coefficient_density_bound` | Finite sum inequality |
-| Density of an independent complex sum | `Planar.sum_has_bounded_density` | Actual measurable density |
-| Disk probability | `Planar.sum_small_ball` | Bound min(1, pi m L s^2 / energy) |
-| Additional normal-net entropy | `dimension_loss_log_envelope`, `dimension_loss_normal_union` | Adds at most N log N; scalar coefficient 27 becomes 28 |
-| Additional column prefactor | `dimension_loss_final_gap` | Absorbs sqrt(N) through a scalar W-to-2W comparison |
+- `Planar.sum_has_bounded_density` and `Planar.sum_small_ball`.
+- `PlanarRowBounds.center_row_probability`.
+- `PlanarTensorization.center_union_endpoint_bound`.
+- `FixedNormalProbability.fixed_bad_probability`.
+- `PlanarBandModel.column_distance_small_ball`.
+- `planar_bad_normals_from_numerics`.
+- `eventually_planar_band_lsv`.
+- `ModelStatements.planar_main_statement`.
 
-## Exact boundary
-
-This is a dimension-loss alternative, not a proof of the dimension-free
-Bobkov-Chistyakov density theorem. It needs only independence, measurability,
-and the stated atom-law density domination hypotheses. It uses no additional
-projection-density or Brascamp-Lieb assumption.
-
-The entropy and threshold statements are scalar lemmas. They do not by
-themselves construct `AppendixBInputs` for the random band matrix. Concrete
-event definitions, row/net tensorization, exposure/conditioning, and the
-model-to-certificate assembly remain to be connected in this standalone
-project. A successful Lean build checks the stated theorems with their exact
-hypotheses; it does not remove those hypotheses.
-
-## Verification
-
-The new module is a default Lake build target. GitHub Actions builds the
-libraries from source and separately audits six public declarations using
-`AxiomAudit.lean`. The accepted foundational dependencies are `propext`,
-`Classical.choice`, and `Quot.sound`. The Actions run for a commit is the
-verification record; an uploaded but unfinished run is not a successful check.
+All names are in `HighBandLSV`. The final constant is `sqrt (pi * L / c)`. No geometric Brascamp--Lieb hypothesis occurs in this branch.

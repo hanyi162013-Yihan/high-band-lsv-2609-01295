@@ -63,8 +63,12 @@ theorem isNormal_iff_ker {N : Nat} (A : NormalEvents.Mat N)
     NormalEvents.IsNormal A j u ↔
       (fun i => u i) ∈ LinearMap.ker
         ((projection (Finset.univ.erase j)).comp (adjointOperator A)) := by
-  simpa only [NormalEvents.IsNormal, Finset.mem_erase, Finset.mem_univ, and_true] using
-    normal_to_columns_iff_ker A (Finset.univ.erase j) u
+  rw [← normal_to_columns_iff_ker A (Finset.univ.erase j) u]
+  constructor
+  · intro h k hk
+    exact (inner_eq_zero_symm (𝕜 := Complex)).mp (h k (Finset.mem_erase.mp hk).1)
+  · intro h k hk
+    exact (inner_eq_zero_symm (𝕜 := Complex)).mp (h k (by simp [hk]))
 
 end HighBandLSV.NormalKernelIdentity
 
