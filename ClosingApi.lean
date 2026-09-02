@@ -1,8 +1,0 @@
-import PlanarSmallBall
-#print HighBandLSV.NumericalCertificate
-#print HighBandLSV.CorrectedSection5NumericalConditions
-#check HighBandLSV.actual_partition_bounds
-#check HighBandLSV.log_rawFixedBound
-#check HighBandLSV.high_band_lsv_from_numerics
-#check HighBandLSV.eventually_correctedSection5NumericalConditions
-#print prefix HighBandLSV

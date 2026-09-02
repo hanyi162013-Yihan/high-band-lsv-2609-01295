@@ -1,3 +1,6 @@
+import UniformModelExample
+import ModelLawTransport
+
 import PlanarModelTheorem
 import RealModelTheorem
 import RealConditionalKernel
@@ -26,3 +29,7 @@ import PlanarNets
 #print axioms HighBandLSV.eventually_real_band_lsv
 #print axioms HighBandLSV.RealColumnExposure.conditional_jointLaw
 #print axioms HighBandLSV.real_bad_normals_from_numerics
+#print axioms HighBandLSV.Examples.model_nonempty
+#print axioms HighBandLSV.Examples.eventually_uniform_dense_lsv
+#print axioms HighBandLSV.ModelLawTransport.real_matrix_law
+#print axioms HighBandLSV.ModelLawTransport.planar_matrix_law

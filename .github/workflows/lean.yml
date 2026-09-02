@@ -85,7 +85,7 @@ jobs:
               if (length(line) != 0) { print "Unexpected proof dependency: " $0; bad = 1 }
             }
             END {
-              if (count != 18) { print "Expected 18 axiom reports, received " count; bad = 1 }
+              if (count != 22) { print "Expected 22 axiom reports, received " count; bad = 1 }
               exit bad
             }
           ' axiom-audit.log
@@ -97,7 +97,7 @@ jobs:
             printf '## Lean proof check\n\n'
             printf 'Checked source revision: `%s`\n\n' "$GITHUB_SHA"
             printf 'Every registered project library was compiled from source.\n\n'
-            printf 'All 18 selected dependency reports contain only propext, Classical.choice, and Quot.sound.\n'
+            printf 'All 22 selected dependency reports contain only propext, Classical.choice, and Quot.sound.\n'
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Save compiled dependencies even if a project proof needs repair
