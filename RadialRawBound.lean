@@ -2,6 +2,8 @@ import RadialLedger
 
 /-! Comparison of the concrete radial-net bound with Appendix B's raw envelope. -/
 
+noncomputable section
+
 namespace HighBandLSV.RadialRawBound
 
 def fixedEnvelope (N J r : Nat) (A W h delta : Real) : Real :=

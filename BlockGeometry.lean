@@ -54,9 +54,10 @@ def assemble (w : ∀ j, p.Block j) : Vec N :=
 theorem restrict_assemble (w : ∀ j, p.Block j) (j : Fin J) :
     p.restrict (p.assemble w) j = w j := by
   ext i
-  have ho := p.owner_eq_of_mem j i.2
-  change w (p.owner i.1) ⟨i.1, p.owner_mem i.1⟩ = w j i
-  cases ho
+  rcases i with ⟨a, ha⟩
+  have ho := p.owner_eq_of_mem j ha
+  change w (p.owner a) ⟨a, p.owner_mem a⟩ = w j ⟨a, ha⟩
+  subst j
   rfl
 
 theorem assemble_restrict (u : Vec N) : p.assemble (p.restrict u) = u := by
@@ -72,7 +73,7 @@ theorem restrict_norm_sq (u : Vec N) (j : Fin J) :
     ‖p.restrict u j‖ ^ 2 = ∑ i ∈ p.blocks j, ‖u i‖ ^ 2 := by
   rw [PiLp.norm_sq_eq_of_L2]
   change (∑ i : {i : Fin N // i ∈ p.blocks j}, ‖u i.1‖ ^ 2) = _
-  exact Finset.sum_coe_sort (fun i : Fin N => ‖u i‖ ^ 2) (p.blocks j)
+  exact Finset.sum_coe_sort (p.blocks j) (fun i : Fin N => ‖u i‖ ^ 2)
 
 theorem sum_restrict_norm_sq (u : Vec N) : (∑ j, ‖p.restrict u j‖ ^ 2) = ‖u‖ ^ 2 := by
   simp_rw [p.restrict_norm_sq]
@@ -130,8 +131,10 @@ structure RowSelection {N J : Nat} (p : Partition N J) (i : Fin N) (r : Nat) whe
 def chooseRows {N J : Nat} (p : Partition N J) (i : Fin N) (r : Nat)
     (hsize : ∀ j, r + 1 ≤ (p.blocks j).card) : RowSelection p i r := by
   classical
-  obtain ⟨rows, hrows⟩ := Section5Formalization.exists_deleted_row_family
+  have hex := Section5Formalization.exists_deleted_row_family
     p.blocks (fun _ => i) (r + 1) hsize
+  let rows := Classical.choose hex
+  have hrows := Classical.choose_spec hex
   exact {
     rows := rows
     subset := fun j => (hrows j).1.trans (Finset.erase_subset _ _)

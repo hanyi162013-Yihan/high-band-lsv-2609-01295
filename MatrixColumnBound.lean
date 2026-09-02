@@ -23,8 +23,8 @@ variable {n W : Nat} {c C L : Real}
 
 theorem reconstruct_same (x : AtomColumn (n + 1)) (rest : Rest (n := n)) :
     (expose j).symm (x, rest) j = x := by
-  change Fin.insertNth j x rest j = x
-  exact Fin.insertNth_apply_same j x rest
+  change Fin.insertNth (α := fun _ : Fin (n + 1) => AtomColumn (n + 1)) j x rest j = x
+  exact Fin.insertNth_apply_same (α := fun _ : Fin (n + 1) => AtomColumn (n + 1)) j x rest
 
 theorem reconstruct_other (x y : AtomColumn (n + 1)) (rest : Rest (n := n))
     (k : Fin (n + 1)) (hk : k ≠ j) :
@@ -32,7 +32,9 @@ theorem reconstruct_other (x y : AtomColumn (n + 1)) (rest : Rest (n := n))
   cases k using Fin.succAboveCases j with
   | x => exact (hk rfl).elim
   | p k =>
-    change Fin.insertNth j x rest (j.succAbove k) = Fin.insertNth j y rest (j.succAbove k)
+    change Fin.insertNth (α := fun _ : Fin (n + 1) => AtomColumn (n + 1))
+      j x rest (j.succAbove k) =
+      Fin.insertNth (α := fun _ : Fin (n + 1) => AtomColumn (n + 1)) j y rest (j.succAbove k)
     simp only [Fin.insertNth_apply_succAbove]
 
 def reconstructedMatrix (z : Complex) (p : AtomColumn (n + 1) × Rest (n := n)) :

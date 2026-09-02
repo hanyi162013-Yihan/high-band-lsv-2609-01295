@@ -11,11 +11,12 @@ theorem geometric_mesh_bounds {d J C1 K : Real}
       (Real.sqrt J * h) * K ≤ d := by
   have hJ0 : 0 < J := by linarith
   have hs : 0 < Real.sqrt J := Real.sqrt_pos.2 hJ0
-  have hs1 : 1 ≤ Real.sqrt J := (Real.le_sqrt (by norm_num) hJ0.le).2 hJ
+  have hs1 : 1 ≤ Real.sqrt J := (Real.le_sqrt (by norm_num) hJ0.le).2 (by simpa using hJ)
   have hbase : 2 ≤ C1 * (K + 1) := by nlinarith
   have hbase0 : 0 < C1 * (K + 1) := by linarith
   have hden : 1 ≤ C1 * (K + 1) * Real.sqrt J :=
-    one_le_mul (by linarith) hs1
+    hs1.trans (by simpa using mul_le_mul_of_nonneg_right
+      (show 1 ≤ C1 * (K + 1) by linarith) hs.le)
   have hh : 0 < d / (C1 * (K + 1) * Real.sqrt J) := by positivity
   have hhd : d / (C1 * (K + 1) * Real.sqrt J) ≤ d := by
     apply (div_le_iff₀ (mul_pos hbase0 hs)).2
@@ -43,10 +44,10 @@ theorem actual_mesh_bounds {N W kappa J C1 K : Real}
   have hdelta1 : delta N W kappa ≤ 1 := by
     unfold delta
     apply Real.exp_le_one_iff.mpr
-    unfold lambda
-    have hp : 0 ≤ N ^ kappa := Real.rpow_nonneg hN _
-    have hl : 0 ≤ N ^ kappa * N / W := by positivity
-    linarith
+    have hl : 0 ≤ Section5Formalization.section5Scale N W kappa := by
+      unfold Section5Formalization.section5Scale
+      positivity
+    exact neg_nonpos.mpr hl
   exact geometric_mesh_bounds hdelta hdelta1 hJ hC1 hK
 
 end HighBandLSV.MeshParameters

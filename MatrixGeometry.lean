@@ -18,9 +18,12 @@ theorem column_norm_le_hilbertSchmidt {N : Nat}
     intro i _
     exact Finset.single_le_sum (fun k _ => sq_nonneg ‖A i k‖) (Finset.mem_univ j)
   have hsum0 : 0 ≤ ∑ i, ∑ k, ‖A i k‖ ^ 2 := by positivity
+  have hformula : hilbertSchmidt A = Real.sqrt (∑ i, ∑ k, ‖A i k‖ ^ 2) := by
+    simp [hilbertSchmidt, Matrix.frobenius_norm_def, Real.sqrt_eq_rpow]
   have hhs : hilbertSchmidt A ^ 2 = ∑ i, ∑ k, ‖A i k‖ ^ 2 := by
+    rw [hformula]
     exact Real.sq_sqrt hsum0
-  have hhs0 : 0 ≤ hilbertSchmidt A := Real.sqrt_nonneg _
+  have hhs0 : 0 ≤ hilbertSchmidt A := by rw [hformula]; exact Real.sqrt_nonneg _
   nlinarith [norm_nonneg (NormalEvents.col A j)]
 
 theorem shifted_column {N : Nat} (A : Matrix (Fin N) (Fin N) Complex)
@@ -41,15 +44,16 @@ theorem shifted_column_norm_le {N : Nat} (A : Matrix (Fin N) (Fin N) Complex)
     ‖NormalEvents.col A j - z • EuclideanSpace.single j 1‖ ≤
         ‖NormalEvents.col A j‖ + ‖z • EuclideanSpace.single j 1‖ := norm_sub_le _ _
     _ = ‖NormalEvents.col A j‖ + ‖z‖ := by simp [norm_smul]
-    _ ≤ hilbertSchmidt A + ‖z‖ := add_le_add_right (column_norm_le_hilbertSchmidt A j) _
+    _ ≤ hilbertSchmidt A + ‖z‖ := add_le_add (column_norm_le_hilbertSchmidt A j) le_rfl
 
 theorem hs_cutoff_column_bound {N : Nat} (A : Matrix (Fin N) (Fin N) Complex)
     (z : Complex) {R Kz : Real} (hhs : hilbertSchmidt A ≤ R * Real.sqrt (N : Real))
     (hz : ‖z‖ ≤ Kz) : ∀ j, ‖NormalEvents.col (shifted A z) j‖ ≤ hsCap N R Kz := by
   intro j
-  have hN : 1 ≤ N := by omega
+  have hN : 1 ≤ N := by have hj := j.isLt; omega
   have hNr : (1 : Real) ≤ N := by exact_mod_cast hN
-  have hs : 1 ≤ Real.sqrt (N : Real) := (Real.le_sqrt (by norm_num) (by positivity)).2 hNr
+  have hs : 1 ≤ Real.sqrt (N : Real) :=
+    (Real.le_sqrt (by norm_num) (by positivity)).2 (by simpa using hNr)
   have hKz : 0 ≤ Kz := (norm_nonneg _).trans hz
   apply (shifted_column_norm_le A z j).trans
   unfold hsCap

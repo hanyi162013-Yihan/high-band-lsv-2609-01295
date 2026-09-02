@@ -5,3 +5,4 @@ import PlanarSmallBall
 #check HighBandLSV.log_rawFixedBound
 #check HighBandLSV.high_band_lsv_from_numerics
 #check HighBandLSV.eventually_correctedSection5NumericalConditions
+#print prefix HighBandLSV

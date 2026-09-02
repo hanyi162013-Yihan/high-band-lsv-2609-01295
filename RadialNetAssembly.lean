@@ -4,7 +4,7 @@ import RadialLedger
 /-! Finite radial block nets assembled into genuine vectors in the original space. -/
 
 open scoped BigOperators
-open BlockGeometry
+open HighBandLSV.BlockGeometry
 
 noncomputable section
 
@@ -80,7 +80,7 @@ def chooseSystem {N J : Nat} (p : BlockGeometry.Partition N J)
   · intro j q v hv
     exact (Classical.choose_spec (hex j q)).1 v hv
   · intro j q u hlow hupp
-    exact (Classical.choose_spec (hex j q)).2.1 u hlow hupp
+    simpa only [dist_eq_norm] using (Classical.choose_spec (hex j q)).2.1 u hlow hupp
   · intro j q
     simpa only [weight, Fintype.card_coe] using (Classical.choose_spec (hex j q)).2.2
 
@@ -128,7 +128,7 @@ theorem approximates (hh : 0 ≤ h) (u : NormalEvents.Vec N) (q : Labels J h)
   choose v hv herr using hv
   let center : net.Centers q := fun j => ⟨v j, hv j⟩
   refine ⟨center, ?_⟩
-  exact p.assembled_error hh u v herr
+  exact p.assembled_error u v hh (fun j => by simpa only [dist_eq_norm] using herr j)
 
 theorem covers_unit_sphere (hh : 0 < h) (u : NormalEvents.Vec N) (hu : ‖u‖ = 1) :
     ∃ q : Labels J h, (∀ j, radius h (q j) ≤ 1) ∧

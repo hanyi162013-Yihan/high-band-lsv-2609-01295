@@ -49,7 +49,10 @@ theorem probability_of_small_weight {N W : Nat} {c C L A delta weight : Real}
       ENNReal.ofReal (bound A N W delta weight) := by
   have hNr : (1 : Real) ≤ N := by exact_mod_cast hN
   have hWr : (1 : Real) ≤ W := by exact_mod_cast hW
-  have hbase : 1 ≤ A * (N : Real) * W := one_le_mul (one_le_mul hA hNr) hWr
+  have hAN : 1 ≤ A * (N : Real) :=
+    hNr.trans (by simpa using mul_le_mul_of_nonneg_right hA (Nat.cast_nonneg N))
+  have hbase : 1 ≤ A * (N : Real) * W :=
+    hWr.trans (by simpa using mul_le_mul_of_nonneg_right hAN (Nat.cast_nonneg W))
   have hnum : weight ≤ A * (N : Real) * W * delta ^ 2 :=
     hsmall.trans (by nlinarith [mul_le_mul_of_nonneg_right hbase (sq_nonneg delta)])
   have hbound : 1 ≤ bound A N W delta weight := by
