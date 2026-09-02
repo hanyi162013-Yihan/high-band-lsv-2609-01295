@@ -30,3 +30,4 @@ import AnisotropicMesh
 #check HighBandLSV.ModelPartition.columnBlock_local
 #check HighBandLSV.dimension_loss_column_union_bound
 #check HighBandLSV.MatrixGeometry.hs_cutoff_column_bound
+#print prefix ProbabilityTheory.iIndepFun

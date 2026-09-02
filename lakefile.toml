@@ -1,6 +1,6 @@
 name = "high-band-lsv-2609-01295"
 version = "0.1.0"
-defaultTargets = ["HighBandLSV", "Section5Formalization", "PlanarSmallBall", "RandomMatrixModel", "NormalEvents", "MatrixColumnBound", "PlanarNets", "BlockGeometry", "NeighborPath", "RadialLedger", "PathApi", "RadialNetAssembly", "PathGeometry", "NormalNetEvents", "MatrixGeometry", "IntegrationApi", "FiniteProbability", "QuadraticLinearization", "PlanarRowBounds", "PlanarTensorization", "RadialRawBound", "MeshParameters", "FixedNormalProbability", "ClosingApi", "RealProjectionInterface", "RealProjectionSmallBall", "RealProjectionAdapter", "InternalNet", "ModelNumerics", "ModelAssemblyApi", "RealModelApi", "RealRandomMatrixModel", "LSVAssembly", "RealAnisotropicGeometry", "RealWeightedGeometry", "AnisotropicLabels", "AnisotropicNetGeometry", "ModelPartition", "AnisotropicNets", "RealFormSmallBall", "RealMatrixForms", "RealSmallBallNumerics", "AnisotropicNetAssembly", "PlanarNormalTheorem", "AnisotropicMesh", "PlanarModelTheorem", "RealRowBounds", "RealColumnSmallBall", "RealColumnExposure", "RealExposureApi", "ProductEvents", "RealLedgerApi", "RealTensorization", "RealNormalNetEvents", "RealMatrixColumnBound", "RealRawBound", "RealConditionalKernel", "RealNetCost", "RealNetProbability", "RealLSVAssembly", "RealFixedNormalProbability"]
+defaultTargets = ["HighBandLSV", "Section5Formalization", "PlanarSmallBall", "RandomMatrixModel", "NormalEvents", "MatrixColumnBound", "PlanarNets", "BlockGeometry", "NeighborPath", "RadialLedger", "PathApi", "RadialNetAssembly", "PathGeometry", "NormalNetEvents", "MatrixGeometry", "IntegrationApi", "FiniteProbability", "QuadraticLinearization", "PlanarRowBounds", "PlanarTensorization", "RadialRawBound", "MeshParameters", "FixedNormalProbability", "ClosingApi", "RealProjectionInterface", "RealProjectionSmallBall", "RealProjectionAdapter", "InternalNet", "ModelNumerics", "ModelAssemblyApi", "RealModelApi", "RealRandomMatrixModel", "LSVAssembly", "RealAnisotropicGeometry", "RealWeightedGeometry", "AnisotropicLabels", "AnisotropicNetGeometry", "ModelPartition", "AnisotropicNets", "RealFormSmallBall", "RealMatrixForms", "RealSmallBallNumerics", "AnisotropicNetAssembly", "PlanarNormalTheorem", "AnisotropicMesh", "PlanarModelTheorem", "RealRowBounds", "RealColumnSmallBall", "RealColumnExposure", "RealExposureApi", "ProductEvents", "RealLedgerApi", "RealTensorization", "RealNormalNetEvents", "RealMatrixColumnBound", "RealRawBound", "RealConditionalKernel", "RealNetCost", "RealNetProbability", "RealLSVAssembly", "RealFixedNormalProbability", "RealNormalTheorem", "RealModelTheorem"]
 
 [[lean_lib]]
 name = "HighBandLSV"
@@ -194,3 +194,9 @@ name = "RealLSVAssembly"
 
 [[lean_lib]]
 name = "RealFixedNormalProbability"
+
+[[lean_lib]]
+name = "RealNormalTheorem"
+
+[[lean_lib]]
+name = "RealModelTheorem"

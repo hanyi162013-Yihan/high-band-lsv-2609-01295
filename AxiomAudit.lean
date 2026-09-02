@@ -1,3 +1,7 @@
+import PlanarModelTheorem
+import RealModelTheorem
+import RealConditionalKernel
+
 import MatrixColumnBound
 import PlanarNets
 
@@ -15,3 +19,10 @@ import PlanarNets
 #print axioms HighBandLSV.NormalEvents.exists_unit_normal
 #print axioms HighBandLSV.PlanarBandModel.column_distance_small_ball
 #print axioms HighBandLSV.PlanarNets.exists_annular_net
+
+#check HighBandLSV.eventually_planar_band_lsv
+#check HighBandLSV.eventually_real_band_lsv
+#print axioms HighBandLSV.eventually_planar_band_lsv
+#print axioms HighBandLSV.eventually_real_band_lsv
+#print axioms HighBandLSV.RealColumnExposure.conditional_jointLaw
+#print axioms HighBandLSV.real_bad_normals_from_numerics
