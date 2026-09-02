@@ -138,10 +138,12 @@ theorem anisotropic_row_probability
         (xRadius q * yRadius q)).trans_le hg
       have hp := m.linearForm_two_small_ball hGBL hrho j v hgp w' hd.le
       rw [hevent] at hp
-      have hn := two_dimensional_bound (by positivity : 0 ≤ 8 * (Real.exp 1 * rho ^ 2))
+      have hn := two_dimensional_bound (d := d)
+        (by positivity : 0 ≤ 8 * (Real.exp 1 * rho ^ 2))
         hc (by exact_mod_cast hW) hxp hyp hg hAtwo
       have hw : labelWeight q = xRadius q * yRadius q := by
-        simp [labelWeight, max_eq_left hxlarge, max_eq_left hylarge]
+        rw [labelWeight, max_eq_left (show h ≤ xRadius q from hxlarge),
+          max_eq_left (show h ≤ yRadius q from hylarge)]
       apply hp.trans
       apply ENNReal.ofReal_le_ofReal
       rw [hw]

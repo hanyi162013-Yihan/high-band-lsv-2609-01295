@@ -10,7 +10,8 @@ open HighBandLSV.RealBandModel
 
 variable {n W : Nat} {c C rho : Real} (m : RealBandModel (n + 1) W c C rho)
 
-def conditionalKernel (j : Fin (n + 1)) : Kernel (Rest n) (AtomColumn (n + 1)) :=
+def conditionalKernel (j : Fin (n + 1)) :
+    Kernel (Rest n) (RealBandModel.AtomColumn (n + 1)) :=
   Kernel.const (Rest n) (m.columnLaw j)
 
 instance conditionalKernel_markov (j : Fin (n + 1)) : IsMarkovKernel (conditionalKernel m j) := by

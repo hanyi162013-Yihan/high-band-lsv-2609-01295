@@ -48,6 +48,36 @@ theorem actual_endpoint_bound
     (mul_le_mul_of_nonneg_right
       (mul_le_mul_of_nonneg_right hA (by positivity)) hJ.le) hd
 
+theorem center_cost_bound
+    {N J r : Nat} {k l : Fin J} (p : BlockGeometry.Partition N J)
+    {A W h d K : Real} (net : Anisotropic.System p h)
+    (path : NeighborPath.Path k l) (q : Anisotropic.Labels J h)
+    (hA : 1024 ≤ A) (hW : 0 ≤ W) (hh : 0 < h) (hh1 : h ≤ 1)
+    (hm : ∀ j, r ≤ (p.blocks j).card)
+    (hend : Anisotropic.labelWeight (q k).val /
+      Anisotropic.labelWeight (q l).val ≤ A * (K + 1) * J * d) :
+    (Fintype.card (net.Centers q) : Real) *
+      RealTensorization.rowProduct r (A * N) W d h path q ≤
+    (1024 / h ^ 2) ^ N * (A * N * W * d ^ 2) ^ (r * J) *
+      (A * (K + 1) * J * d) ^ r := by
+  classical
+  have hA0 : 0 ≤ A := by linarith
+  have hw : ∀ j, 0 < Anisotropic.labelWeight (q j).val :=
+    fun j => Anisotropic.labelWeight_pos hh (q j).val
+  have hw1 : ∀ j, Anisotropic.labelWeight (q j).val ≤ 1 :=
+    fun j => Anisotropic.labelWeight_le_one hh.le hh1 (q j).property
+  have hrow : 0 ≤ RealTensorization.rowProduct r (A * N) W d h path q := by
+    unfold RealTensorization.rowProduct
+    exact Finset.prod_nonneg fun j _ => pow_nonneg
+      (div_nonneg (by positivity) (hw _).le) _
+  calc
+    _ ≤ (∏ j, (1024 * Anisotropic.labelWeight (q j).val / h ^ 2) ^
+        (p.blocks j).card) * RealTensorization.rowProduct r (A * N) W d h path q :=
+      mul_le_mul_of_nonneg_right (net.center_card q) hrow
+    _ ≤ _ := weighted_cost_bound path (fun j => (p.blocks j).card)
+      (fun j => Anisotropic.labelWeight (q j).val) hA hW hh hw hw1 hm
+      p.sum_card_blocks hend
+
 end HighBandLSV.RealNetCost
 
 #print axioms HighBandLSV.RealNetCost.weighted_cost_bound

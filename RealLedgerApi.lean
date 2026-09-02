@@ -1,3 +1,5 @@
+import PlanarModelTheorem
+
 import RealTensorization
 import RealNormalNetEvents
 import RealRawBound
@@ -19,3 +21,11 @@ import AnisotropicMesh
 #check HighBandLSV.BlockGeometry.Partition.sum_card_blocks
 #check HighBandLSV.ModelNumerics.certificate_dimension_loss_union
 #check HighBandLSV.FiniteProbability.finite_union_bound
+#check HighBandLSV.planar_bad_normals_from_numerics
+#check HighBandLSV.planar_model_lsv_of_numerics
+#check HighBandLSV.eventually_planar_band_lsv
+#print prefix HighBandLSV.FiniteProbability
+#check HighBandLSV.certificate_dimension_loss_union
+#check HighBandLSV.ModelPartition.actual
+#check HighBandLSV.RadialRawBound.actual_fixedEnvelope_le_raw
+#check HighBandLSV.FixedNormalProbability.fixed_probability
