@@ -39,6 +39,7 @@ theorem continuous_blockMass {N : Nat} (B : Finset (Fin N)) : Continuous (blockM
 
 abbrev UnitVec (N : Nat) := {u : Vec N // ‖u‖ = 1}
 
+set_option backward.isDefEq.respectTransparency false in
 instance unitVec_compact (N : Nat) : CompactSpace (UnitVec N) := by
   apply isCompact_iff_compactSpace.mp
   simpa only [Metric.sphere, dist_zero_right] using isCompact_sphere (0 : Vec N) (1 : Real)
@@ -98,7 +99,13 @@ theorem measurableSet_bad {N : Nat} (j : Fin N) (B : Finset (Fin N)) (d : Real) 
 theorem good_eq_compl_bad {N : Nat} (j : Fin N) (B : Finset (Fin N)) (d : Real) :
     good j B d = (bad j B d)ᶜ := by
   ext A
-  simp [good, bad, not_lt]
+  constructor
+  · intro h hbad
+    obtain ⟨u, hu, hmass⟩ := hbad
+    exact (not_lt_of_ge (h u hu)) hmass
+  · intro h u hu
+    by_contra hmass
+    exact h ⟨u, hu, lt_of_not_ge hmass⟩
 
 theorem measurableSet_good {N : Nat} (j : Fin N) (B : Finset (Fin N)) (d : Real) :
     MeasurableSet (good j B d) := by
@@ -143,13 +150,21 @@ theorem good_congr {N : Nat} {A A' : Mat N} (j : Fin N) (B : Finset (Fin N)) (d 
   · exact h u ((normal_congr j hcols u).mpr hu)
   · exact h u ((normal_congr j hcols u).mp hu)
 
+set_option maxHeartbeats 1000000 in
 theorem measurable_columnDistance {N : Nat} (j : Fin N) :
     Measurable (fun A : Mat N => GinibreLSV.columnDistance A j) := by
   apply measurable_of_Iio
   intro r
   have hC : Measurable (fun A : Mat N => fun k => col A k) :=
     measurable_pi_lambda _ fun k => (continuous_col k).measurable
-  exact (GinibreLSV.measurableSet_columnDistance_matrixOfColumns_lt j r).preimage hC
+  have heq (A : Mat N) :
+      GinibreLSV.matrixOfColumns (fun k => col A k) = A := by
+    ext i k
+    rfl
+  have hset : MeasurableSet {A : Mat N |
+      GinibreLSV.columnDistance (GinibreLSV.matrixOfColumns (fun k => col A k)) j < r} :=
+    (GinibreLSV.measurableSet_columnDistance_matrixOfColumns_lt j r).preimage hC
+  simpa only [heq] using hset
 
 theorem inner_col_eq {N : Nat} (u : Vec N) (A : Mat N) (j : Fin N) :
     inner Complex u (col A j) = ∑ i, star (u i) * A i j := by

@@ -1,0 +1,9 @@
+import Section5Formalization.DeterministicCompletion
+#check Section5Formalization.cyclic_path_map_product
+#print Section5Formalization.CyclicNeighbor
+#check Section5Formalization.cyclicPathSources
+#check Fin.castSucc_injective
+#check Fin.succ_injective
+#check Fin.last
+#check Finset.sum_coe_sort
+#check Finset.card_biUnion
