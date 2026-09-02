@@ -1,6 +1,6 @@
 name = "high-band-lsv-2609-01295"
 version = "0.1.0"
-defaultTargets = ["HighBandLSV", "Section5Formalization", "PlanarSmallBall", "RandomMatrixModel", "NormalEvents", "MatrixColumnBound", "PlanarNets", "BlockGeometry", "NeighborPath", "RadialLedger", "PathApi", "RadialNetAssembly", "PathGeometry", "NormalNetEvents", "MatrixGeometry", "IntegrationApi"]
+defaultTargets = ["HighBandLSV", "Section5Formalization", "PlanarSmallBall", "RandomMatrixModel", "NormalEvents", "MatrixColumnBound", "PlanarNets", "BlockGeometry", "NeighborPath", "RadialLedger", "PathApi", "RadialNetAssembly", "PathGeometry", "NormalNetEvents", "MatrixGeometry", "IntegrationApi", "FiniteProbability", "QuadraticLinearization", "PlanarRowBounds"]
 
 [[lean_lib]]
 name = "HighBandLSV"
@@ -59,3 +59,12 @@ name = "MatrixGeometry"
 
 [[lean_lib]]
 name = "IntegrationApi"
+
+[[lean_lib]]
+name = "FiniteProbability"
+
+[[lean_lib]]
+name = "QuadraticLinearization"
+
+[[lean_lib]]
+name = "PlanarRowBounds"

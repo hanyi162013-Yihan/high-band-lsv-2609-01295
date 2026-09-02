@@ -25,7 +25,10 @@ theorem weight_pow_le {x : Real} {r m : Nat}
     (hx : 0 ≤ x) (hx1 : x ≤ 1) (hr : r ≤ m) : x ^ m ≤ x ^ r := by
   have hm : m = r + (m - r) := (Nat.add_sub_of_le hr).symm
   calc
-    x ^ m = x ^ r * x ^ (m - r) := by rw [hm, pow_add]
+    x ^ m = x ^ r * x ^ (m - r) := by
+      calc
+        x ^ m = x ^ (r + (m - r)) := congrArg (fun t : Nat => x ^ t) hm
+        _ = x ^ r * x ^ (m - r) := pow_add x r (m - r)
     _ ≤ x ^ r := by
       have hpow : x ^ (m - r) ≤ 1 := pow_le_one₀ hx hx1
       nlinarith [pow_nonneg hx r]
@@ -47,7 +50,7 @@ theorem net_weight_bound {J N r : Nat} {A h : Real}
         ∏ j, ((A / h ^ 2) ^ m j * w j ^ r) := by
       apply Finset.prod_le_prod
       · intro j _
-        positivity
+        exact pow_nonneg (div_nonneg (mul_nonneg hA (hw j).le) (sq_nonneg h)) _
       · intro j _
         exact hterm j
     _ = (∏ j, (A / h ^ 2) ^ m j) * ∏ j, w j ^ r :=
@@ -71,7 +74,7 @@ theorem net_row_cancellation {J N r : Nat} {k l : Fin J}
   have hrow : 0 ≤ ∏ j, (B / w (NeighborPath.next p.vertices j)) ^ r := by
     apply Finset.prod_nonneg
     intro j _
-    positivity
+    exact pow_nonneg (div_nonneg hB (hw (NeighborPath.next p.vertices j)).le) r
   calc
     (∏ j, (A * w j / h ^ 2) ^ m j) *
         (∏ j, (B / w (NeighborPath.next p.vertices j)) ^ r) ≤
@@ -110,7 +113,7 @@ theorem radial_to_endpoint_bound {J N r : Nat} {k l : Fin J}
       (A / h ^ 2) ^ N * B ^ (r * J) * (4 * (J : Real) * delta ^ 2) ^ r := by
   apply (net_row_cancellation p m w hA hB hh hw hw1 hm hsum).trans
   apply mul_le_mul_of_nonneg_left
-  · exact pow_le_pow_left₀ (by positivity)
+  · exact pow_le_pow_left₀ (div_nonneg (hw k).le (hw l).le)
       (endpoint_ratio_bound hJ (hw l) hsmall hheavy) r
   · positivity
 

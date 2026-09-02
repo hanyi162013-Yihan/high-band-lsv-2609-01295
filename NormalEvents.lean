@@ -42,7 +42,9 @@ abbrev UnitVec (N : Nat) := {u : Vec N // ‖u‖ = 1}
 private theorem compactUnitSphere (E : Type*) [NormedAddCommGroup E] [ProperSpace E] :
     CompactSpace {u : E // ‖u‖ = 1} := by
   apply isCompact_iff_compactSpace.mp
-  simpa only [Metric.sphere, dist_zero_right] using isCompact_sphere (0 : E) (1 : Real)
+  convert isCompact_sphere (0 : E) (1 : Real) using 1
+  ext u
+  simp only [Metric.mem_sphere, dist_zero_right, mem_setOf_eq]
 
 instance unitVec_compact (N : Nat) : CompactSpace (UnitVec N) :=
   compactUnitSphere (Vec N)
