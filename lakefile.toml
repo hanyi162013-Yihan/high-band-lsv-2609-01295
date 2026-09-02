@@ -1,6 +1,6 @@
 name = "high-band-lsv-2609-01295"
 version = "0.1.0"
-defaultTargets = ["HighBandLSV", "Section5Formalization", "PlanarSmallBall", "RandomMatrixModel", "NormalEvents", "MatrixColumnBound", "PlanarNets", "BlockGeometry", "NeighborPath", "RadialLedger", "PathApi", "RadialNetAssembly", "PathGeometry", "NormalNetEvents", "MatrixGeometry", "IntegrationApi", "FiniteProbability", "QuadraticLinearization", "PlanarRowBounds", "PlanarTensorization", "RadialRawBound", "MeshParameters", "FixedNormalProbability", "ClosingApi", "RealProjectionInterface", "RealProjectionSmallBall", "RealProjectionAdapter", "InternalNet", "ModelNumerics", "ModelAssemblyApi", "RealModelApi", "RealRandomMatrixModel", "LSVAssembly", "RealAnisotropicGeometry", "RealWeightedGeometry", "AnisotropicLabels", "AnisotropicNetGeometry", "ModelPartition", "AnisotropicNets", "RealFormSmallBall", "RealMatrixForms", "RealSmallBallNumerics", "AnisotropicNetAssembly", "PlanarNormalTheorem", "AnisotropicMesh", "PlanarModelTheorem", "RealRowBounds", "RealColumnSmallBall", "RealColumnExposure", "RealExposureApi"]
+defaultTargets = ["HighBandLSV", "Section5Formalization", "PlanarSmallBall", "RandomMatrixModel", "NormalEvents", "MatrixColumnBound", "PlanarNets", "BlockGeometry", "NeighborPath", "RadialLedger", "PathApi", "RadialNetAssembly", "PathGeometry", "NormalNetEvents", "MatrixGeometry", "IntegrationApi", "FiniteProbability", "QuadraticLinearization", "PlanarRowBounds", "PlanarTensorization", "RadialRawBound", "MeshParameters", "FixedNormalProbability", "ClosingApi", "RealProjectionInterface", "RealProjectionSmallBall", "RealProjectionAdapter", "InternalNet", "ModelNumerics", "ModelAssemblyApi", "RealModelApi", "RealRandomMatrixModel", "LSVAssembly", "RealAnisotropicGeometry", "RealWeightedGeometry", "AnisotropicLabels", "AnisotropicNetGeometry", "ModelPartition", "AnisotropicNets", "RealFormSmallBall", "RealMatrixForms", "RealSmallBallNumerics", "AnisotropicNetAssembly", "PlanarNormalTheorem", "AnisotropicMesh", "PlanarModelTheorem", "RealRowBounds", "RealColumnSmallBall", "RealColumnExposure", "RealExposureApi", "ProductEvents", "RealLedgerApi", "RealTensorization", "RealNormalNetEvents"]
 
 [[lean_lib]]
 name = "HighBandLSV"
@@ -161,3 +161,15 @@ name = "RealColumnExposure"
 
 [[lean_lib]]
 name = "RealExposureApi"
+
+[[lean_lib]]
+name = "ProductEvents"
+
+[[lean_lib]]
+name = "RealLedgerApi"
+
+[[lean_lib]]
+name = "RealTensorization"
+
+[[lean_lib]]
+name = "RealNormalNetEvents"

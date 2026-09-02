@@ -26,7 +26,7 @@ theorem form_eq_star_linearForm (j : Fin N) (u : CV (Fin N)) (x : AtomColumn N) 
     form (m.realCoefficients j u) (m.imagCoefficients j u) (coordinateRV x) =
       star (m.linearForm j u x) := by
   apply Complex.ext <;>
-    simp [form, realCoefficients, imagCoefficients, weightReal, realPart, imagPart,
+    simp [form, realCoefficients, imagCoefficients, weightReal, Anisotropic.realPart, Anisotropic.imagPart,
       coordinateRV, linearForm, PiLp.inner_apply, Complex.mul_re, Complex.mul_im,
       mul_comm, mul_left_comm, mul_assoc]
 
