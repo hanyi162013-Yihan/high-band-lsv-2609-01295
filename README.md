@@ -86,3 +86,12 @@ No new axiom declarations or unchecked proof placeholders are used. Standard Lea
 This is not a formalization of every section of either manuscript, nor a proof of an unconditional Hilbert--Schmidt tail estimate.
 
 [ProjectAxiomAudit.lean](ProjectAxiomAudit.lean) additionally traverses declarations by their owning production module and checks every such declaration's transitive dependencies. This supplements, rather than replaces, the 25 named theorem checks.
+
+## Paper-facing entry points
+
+`HighBandLSV.PaperModelTheorem.real_main_statement` and
+`HighBandLSV.PaperModelTheorem.planar_main_statement` remove the redundant
+bandwidth-upper-bound premise: it is proved from a normalized row and the
+variance upper bound. They also derive eventual positive bandwidth from the
+high-band lower bound. See [SOURCE_COMPARISON.md](SOURCE_COMPARISON.md) for the
+precise correspondence and intentional differences from Appendix B.

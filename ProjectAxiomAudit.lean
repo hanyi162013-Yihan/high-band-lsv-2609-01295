@@ -1,4 +1,3 @@
-import Lean.Util.CollectAxioms
 import AnisotropicLabels
 import AnisotropicMesh
 import AnisotropicNetAssembly
@@ -21,6 +20,7 @@ import NeighborPath
 import NormalEvents
 import NormalKernelIdentity
 import NormalNetEvents
+import PaperModelTheorem
 import PathGeometry
 import PlanarModelTheorem
 import PlanarNets
@@ -67,8 +67,6 @@ import Section5Formalization.Section5Formalization
 import Section5Formalization.VolumetricNet
 import UniformModelExample
 
-/-! Comprehensive dependency audit, selected by the owning source module. -/
-
 open Lean Elab Command
 
 run_cmd do
@@ -96,6 +94,7 @@ run_cmd do
     "NormalEvents",
     "NormalKernelIdentity",
     "NormalNetEvents",
+    "PaperModelTheorem",
     "PathGeometry",
     "PlanarModelTheorem",
     "PlanarNets",
@@ -140,7 +139,8 @@ run_cmd do
     "Section5Formalization.MatrixNormal",
     "Section5Formalization.Section5Formalization",
     "Section5Formalization.VolumetricNet",
-    "UniformModelExample"]
+    "UniformModelExample",
+  ]
   let allowed : Array Name := #[``propext, ``Classical.choice, ``Quot.sound]
   let mut count : Nat := 0
   for (name, _) in env.checked.get.constants.toList do

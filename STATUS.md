@@ -36,3 +36,12 @@ No measurable normal-vector selection is assumed. A universal Borel good-normal 
 The original Section 5 workspace and the manuscript source are not modified by this independent project.
 
 The full-project audit in `ProjectAxiomAudit.lean` also checks the transitive dependencies of declarations by source-module ownership. It covers auxiliary results that are not reached by the 25 selected theorem checks.
+
+## Exact source scope
+
+The source is arXiv:2609.01295v1, where the high-band input is **Theorem 3.1**
+(not Proposition 3.1). The two paper-facing declarations in
+`PaperModelTheorem.lean` derive the profile bandwidth upper bound rather than
+assuming it separately. See [SOURCE_COMPARISON.md](SOURCE_COMPARISON.md) for the
+statement-by-statement comparison, including the optional directional extension
+and stronger intermediate lemmas that are not claimed as formalized.

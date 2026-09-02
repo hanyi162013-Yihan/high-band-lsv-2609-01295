@@ -51,3 +51,9 @@ import PlanarNets
 #print HighBandLSV.PlanarBandModel
 #print LivshytsProjectionFormalization.CoordinateDensityData
 #print LivshytsProjectionFormalization.RealFiniteGeometricBrascampLieb
+
+#check HighBandLSV.PaperModelTheorem.real_main_statement
+#check HighBandLSV.PaperModelTheorem.planar_main_statement
+set_option pp.explicit true in
+#print HighBandLSV.hilbertSchmidt
+#print GinibreLSV.leastSingularValue

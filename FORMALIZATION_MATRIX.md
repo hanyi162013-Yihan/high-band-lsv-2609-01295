@@ -87,3 +87,17 @@ The actual mesh, endpoint weights, and exponential threshold are preserved. Some
 ## Whole-project checking
 
 `ProjectAxiomAudit.lean` imports all production modules and traverses their declarations using Lean's kernel environment and module-ownership metadata. Every collected dependency must be one of the three standard logical foundations listed in `STATUS.md`. The build additionally checks the 25 named declarations in `AxiomAudit.lean`, rejects forbidden source constructs, and verifies that no tracked Lean source lacks its compiled module artifact.
+
+## Paper-facing assumption reduction
+
+| Step | Declaration | Status |
+| --- | --- | --- |
+| Row normalization and variance cap imply `W <= C N` | `PaperModelTheorem.profile_bandwidth_upper` | Proved |
+| Apply the preceding bound to actual real/planar models | `PaperModelTheorem.real_profile_bandwidth_upper`, `PaperModelTheorem.planar_profile_bandwidth_upper` | Proved |
+| Main statements without separate positive-bandwidth or upper-bandwidth inputs | `PaperModelTheorem.real_main_statement`, `PaperModelTheorem.planar_main_statement` | Proved |
+
+The literal standalone dimension-free planar convolution lemma, the optional
+conditional-direction model in Remark 2.11, and the general polynomial-cap
+formulation of Proposition B.5 are not claimed here. The actual-model
+HS-truncated main conclusions for real and joint-planar-density entries are
+proved using the alternatives explained in [SOURCE_COMPARISON.md](SOURCE_COMPARISON.md).
