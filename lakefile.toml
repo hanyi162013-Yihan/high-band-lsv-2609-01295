@@ -1,6 +1,6 @@
 name = "high-band-lsv-2609-01295"
 version = "0.1.0"
-defaultTargets = ["HighBandLSV", "Section5Formalization", "PlanarSmallBall"]
+defaultTargets = ["HighBandLSV", "Section5Formalization", "PlanarSmallBall", "RandomMatrixModel"]
 
 [[lean_lib]]
 name = "HighBandLSV"
@@ -20,3 +20,6 @@ rev = "fd0f76fbcde3b5909d5a9ab41ed4cb5d60da1032"
 
 [[lean_lib]]
 name = "PlanarSmallBall"
+
+[[lean_lib]]
+name = "RandomMatrixModel"
