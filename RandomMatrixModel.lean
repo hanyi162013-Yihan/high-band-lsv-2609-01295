@@ -83,8 +83,8 @@ theorem independent_column_atoms (j : Fin N) :
   letI : ∀ i, IsProbabilityMeasure (m.atomLaw j i) := m.atom_probability j
   exact iIndepFun_pi (fun _ => measurable_id.aemeasurable)
 
-/-- Row normalization supplies the paper's upper bandwidth bound. -/
 include m in
+/-- Row normalization supplies the paper's upper bandwidth bound. -/
 theorem bandwidth_le (hN : 0 < N) (hW : 0 < W) :
     (W : Real) ≤ C * N := by
   let i : Fin N := ⟨0, hN⟩

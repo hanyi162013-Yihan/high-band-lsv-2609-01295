@@ -1,6 +1,6 @@
 name = "high-band-lsv-2609-01295"
 version = "0.1.0"
-defaultTargets = ["HighBandLSV", "Section5Formalization", "PlanarSmallBall", "RandomMatrixModel", "NormalEvents", "MatrixColumnBound", "PlanarNets"]
+defaultTargets = ["HighBandLSV", "Section5Formalization", "PlanarSmallBall", "RandomMatrixModel", "NormalEvents", "MatrixColumnBound", "PlanarNets", "BlockGeometry"]
 
 [[lean_lib]]
 name = "HighBandLSV"
@@ -32,3 +32,6 @@ name = "MatrixColumnBound"
 
 [[lean_lib]]
 name = "PlanarNets"
+
+[[lean_lib]]
+name = "BlockGeometry"
